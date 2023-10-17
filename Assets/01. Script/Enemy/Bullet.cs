@@ -7,10 +7,10 @@ public class Bullet : MonoBehaviour
     Rigidbody2D _rigid2d;
     Vector3 dir;
     float speed = 5;
+    int damage = 1;
     private void Awake()
     {
         _rigid2d = GetComponent<Rigidbody2D>();
-        Destroy(gameObject, 4);
     }
 
     void Update()
@@ -27,8 +27,12 @@ public class Bullet : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            //collision.gameObject.GetComponent<대충에너미스크립트암바투캄>().피달아(); << 이런식으로 짜는 코드가 좋을수가잇음?
+            collision.gameObject.GetComponent<Player>().OnHit(damage);
             print("playerHit");
+        }
+        if (collision.CompareTag("Border"))
+        {
+            Destroy(gameObject);
         }
     }
 }
