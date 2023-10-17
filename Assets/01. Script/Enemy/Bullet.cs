@@ -28,7 +28,6 @@ public class Bullet : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<Player>().OnHit(damage);
-            print("playerHit");
         }
         if (collision.CompareTag("Border"))
         {

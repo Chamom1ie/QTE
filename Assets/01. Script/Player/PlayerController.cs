@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] GameObject playerBulletPrf;
     float bulletSpeed;
-    Vector3 dir;
+    Vector2 dir;
     Camera cam;
 
     private void Awake()
@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
     void Attack()
     {
-        dir = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -cam.transform.position.z));
+        dir = (cam.ScreenToWorldPoint(Input.mousePosition) - transform.position);
         GameObject bullet = Instantiate(playerBulletPrf, transform.position, Quaternion.identity);
         bullet.GetComponent<PlayerBullet>().SetDir(dir);
     }

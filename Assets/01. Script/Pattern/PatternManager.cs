@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PatternManager : MonoBehaviour
 {
-    WaitForSeconds cooldown = new(20f);
+    WaitForSeconds cooldown = new(7f);
 
     private void Start()
     {
@@ -12,7 +12,11 @@ public class PatternManager : MonoBehaviour
     }
     IEnumerator Timer()
     {
-        yield return cooldown;
-        transform.GetChild(Random.Range(0, transform.childCount)).gameObject.SetActive(true);
+        while (true)
+        {
+            //transform.GetChild(Random.Range(0, transform.childCount)).gameObject.SetActive(true);
+            transform.GetChild(0).gameObject.SetActive(true);
+            yield return cooldown;
+        }
     }
 }
