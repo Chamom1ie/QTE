@@ -22,4 +22,13 @@ public class Bullet : MonoBehaviour
     {
         dir = moveDir;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            //collision.gameObject.GetComponent<대충에너미스크립트암바투캄>().피달아(); << 이런식으로 짜는 코드가 좋을수가잇음?
+            print("playerHit");
+        }
+    }
 }

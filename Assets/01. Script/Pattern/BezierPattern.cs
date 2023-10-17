@@ -45,8 +45,9 @@ public class BezierPattern : MonoBehaviour
             _target.position = Vector3.Lerp(p4, p5, time);
 
             GameObject obj = Instantiate(bulletPrf, firstPos + (_target.position * randSign), Quaternion.identity);
-
+            
             yield return null;  
+
         }
         for (int i = 0; i < _p.Length; i++)
         {
