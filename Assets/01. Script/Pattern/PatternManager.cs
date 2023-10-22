@@ -37,7 +37,7 @@ public class PatternManager : MonoBehaviour
         sr = boss.GetComponent<SpriteRenderer>();
         
         firstColor = sr.color;
-        patterns = new IEnumerator[] { BezierPattern(), DashPattern(), CrossPattern(), TriGraphPattern(), AADASD() };
+        patterns = new IEnumerator[] { BezierPattern(), DashPattern(), CrossPattern(), LinearPattern(), AADASD() };
 
         for (int i = 0; i < _p.Length; i++)
         {
@@ -63,7 +63,7 @@ public class PatternManager : MonoBehaviour
             int rand = Random.Range(2, patterns.Length);
             for (int i = 0; i < 5; i++) //뭐할까요 아래
             {
-                patterns = new IEnumerator[] { BezierPattern(), DashPattern(), CrossPattern(), TriGraphPattern(), AADASD() };
+                patterns = new IEnumerator[] { BezierPattern(), DashPattern(), CrossPattern(), LinearPattern(), AADASD() };
                 print("patterngogo");
                 int random = Random.Range(0, 2);
                 StartCoroutine(patterns[random]);
@@ -144,7 +144,7 @@ public class PatternManager : MonoBehaviour
         yield return null;
     }
 
-    IEnumerator TriGraphPattern()
+    IEnumerator LinearPattern()
     {
         yield return null;
     }

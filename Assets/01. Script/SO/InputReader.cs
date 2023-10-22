@@ -26,9 +26,8 @@ public class InputReader : ScriptableObject, IPlayerActions, IInQTEActions
         {
             _control = new Control();
             _control.Player.SetCallbacks(this);
-            _control.inQTE.SetCallbacks(this);
         }
-        _control.inQTE.Enable();
+        _control.Player.Enable();
     }
     
     public void OnMovement(InputAction.CallbackContext context)

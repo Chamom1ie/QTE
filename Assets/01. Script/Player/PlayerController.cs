@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static Control;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,7 +18,6 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         Control control = new Control();
-        control.Player.Enable();
 
         cam = Camera.main;
 

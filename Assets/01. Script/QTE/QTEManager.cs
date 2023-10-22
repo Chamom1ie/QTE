@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -20,7 +20,7 @@ public class QTEManager : MonoBehaviour
         _inputReader.QTEEvent += () => Debug.Log(1);
      }
 
-    /*private void QTEEnable()
+    *//*private void QTEEnable()
     {
         playerInput.GetControl().inQTE.Enable();
     }
@@ -38,5 +38,6 @@ public class QTEManager : MonoBehaviour
     private void PlayerDisble()
     {
         playerInput.GetControl().Player.Disable();
-    }*/
+    }*//*
 }
+*/
