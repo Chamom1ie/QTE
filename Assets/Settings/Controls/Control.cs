@@ -176,12 +176,12 @@ public partial class @Control: IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""QTEInput"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""52ded42e-b093-41fa-a35a-7bed0b17531a"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Key"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -191,7 +191,7 @@ public partial class @Control: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/anyKey"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""KeyAndMouse"",
                     ""action"": ""QTEInput"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

@@ -9,9 +9,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private InputReader _inputReader;
 
     [SerializeField] GameObject playerBulletPrf;
-    float bulletSpeed;
     Vector2 dir;
     Camera cam;
+
+    private bool isCooldown = false;
+    private float attackCool = 0.4f;
+    private float lastAttackTime = 0f;
 
     private void Awake()
     {
@@ -23,11 +26,28 @@ public class PlayerController : MonoBehaviour
         _inputReader.AttackEvent += Attack;
     }
 
+    private void Update()
+    {
+        if (isCooldown)
+        {
+            if (Time.time - lastAttackTime >= attackCool)
+            {
+                isCooldown = false;
+            }
+        }
+    }
+
     void Attack()
     {
-        dir = (cam.ScreenToWorldPoint(Input.mousePosition) - transform.position);
-        GameObject bullet = Instantiate(playerBulletPrf, transform.position, Quaternion.identity);
-        bullet.GetComponent<PlayerBullet>().SetDir(dir);
+        if (!isCooldown)
+        {
+            dir = (cam.ScreenToWorldPoint(Input.mousePosition) - transform.position);
+            GameObject bullet = Instantiate(playerBulletPrf, transform.position, Quaternion.identity);
+            bullet.GetComponent<PlayerBullet>().SetDir(dir);
+
+            isCooldown = true;
+            lastAttackTime = Time.time;
+        }
     }
 
     

@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBullet : MonoBehaviour
+public class PlayerBullet : Bullets
 {
     Rigidbody2D _rigid2d;
-    Vector3 dir;
-    float speed = 5;
+    float speed = 6;
     private void Awake()
     {
         _rigid2d = GetComponent<Rigidbody2D>();
@@ -18,17 +17,15 @@ public class PlayerBullet : MonoBehaviour
         _rigid2d.velocity = dir.normalized * speed;
     }
 
-    public void SetDir(Vector3 moveDir)
+    public override void CollisionAny(Collider2D collision)
     {
-        dir = moveDir;
+        if (collision.CompareTag("BulletBorder"))
+        {
+            PoolManager.Release(gameObject);
+        }
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy"))
-        {
-            //collision.gameObject.GetComponent<대충에너미스크립트암바투캄>().피달아(); << 이런식으로 짜는 코드가 좋을수가잇음?
-            print("enemyHit");
-        }
+        CollisionAny(collision);
     }
 }

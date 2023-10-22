@@ -6,10 +6,14 @@ using UnityEngine.InputSystem;
 using static Control;
 
 [CreateAssetMenu(menuName = "SO/InputReader")]
-public class InputReader : ScriptableObject, IPlayerActions
+public class InputReader : ScriptableObject, IPlayerActions, IInQTEActions
 {
     public event Action<Vector2> MovementEvent;
     public event Action AttackEvent;
+    public event Action QTEEvent;
+
+    public event Action ActionMapControl;
+
     private Control _control;
     public Control GetControl()
     {
@@ -22,11 +26,11 @@ public class InputReader : ScriptableObject, IPlayerActions
         {
             _control = new Control();
             _control.Player.SetCallbacks(this);
+            _control.inQTE.SetCallbacks(this);
         }
-
-        _control.Player.Enable();
+        _control.inQTE.Enable();
     }
-
+    
     public void OnMovement(InputAction.CallbackContext context)
     {
         Vector2 value = context.ReadValue<Vector2>();
@@ -41,6 +45,6 @@ public class InputReader : ScriptableObject, IPlayerActions
 
     public void OnQTEInput(InputAction.CallbackContext context)
     {
-        //throw new NotImplementedException();
+        QTEEvent?.Invoke();
     }
 }

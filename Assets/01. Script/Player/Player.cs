@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using System;
 
 public class Player : MonoBehaviour
 {
+    public Action PlayerDead;
+
     int hp = 10;
-    float invincibleTime = 2f;
+    float invincibleTime = 0.5f;
 
     private SpriteRenderer sr;
     private BoxCollider2D coll;
@@ -24,7 +27,8 @@ public class Player : MonoBehaviour
         print("맞음");
         if (hp <= 0)
         {
-            print("주금");
+            PlayerDead?.Invoke();
+            gameObject.SetActive(false);
         }
         StartCoroutine(HitRoutine());
     }
