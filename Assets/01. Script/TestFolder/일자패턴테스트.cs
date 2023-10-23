@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class 일자패턴테스트 : MonoBehaviour
 {
-    float radius = 10f;
+    float radius = 7f;
     [SerializeField] GameObject testBulletPrf;
     [SerializeField] Player player;
     [SerializeField] List<GameObject> bullets = new();
@@ -18,14 +18,9 @@ public class 일자패턴테스트 : MonoBehaviour
 
         return new Vector2(x, y);
     }
-
-    private void OnEnable()
-    {
-        StartCoroutine(LinearPatternTest());
-    }
-
     IEnumerator LinearPatternTest()
     {
+        bullets.Clear();
         float duration = 0.4f;
         float time;
         Vector2 firstPlayerPos = player.transform.position;
@@ -40,8 +35,7 @@ public class 일자패턴테스트 : MonoBehaviour
 
         foreach (GameObject obj in bullets)
         {
-            obj.GetComponent<Component>().GetComponent<GameObject>();
-            Debug.Log(obj);
+            obj.GetComponent<플레이어픎마근처로날아가는코드>().SetDir(player.transform.position - obj.transform.position);
         }
     }
 }

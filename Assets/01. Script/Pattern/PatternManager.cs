@@ -29,6 +29,12 @@ public class PatternManager : MonoBehaviour
     private Color firstColor;
     #endregion
 
+    [Header("Linear Pattern")]
+    #region Linear
+    [SerializeField] float radius;
+    [SerializeField] List<GameObject> linearBullet = new();
+    [SerializeField] GameObject linearBulletPrf; 
+    #endregion
     WaitForSeconds cooldown = new(10);
     float patternDelay = 1;
     private void Awake()
@@ -146,7 +152,33 @@ public class PatternManager : MonoBehaviour
 
     IEnumerator LinearPattern()
     {
-        yield return null;
+        linearBullet.Clear();
+        float duration = 0.4f;
+        float time;
+        Vector2 firstPlayerPos = player.transform.position;
+        for (time = 0; time < 1; time += Time.fixedDeltaTime / duration)
+        {
+            Vector2 randPos = RandomPoint();
+            GameObject obj = Instantiate(linearBulletPrf, randPos + firstPlayerPos, Quaternion.identity);
+            linearBullet.Add(obj);
+
+            yield return null;
+        }
+
+        foreach (GameObject obj in linearBullet)
+        {
+            obj.GetComponent<LinearBullet>().SetDir(player.transform.position - obj.transform.position);
+        }
+    }
+
+    private Vector2 RandomPoint()
+    {
+        float randAngle = Random.Range(0f, 2f * Mathf.PI);
+
+        float x = radius * Mathf.Cos(randAngle);
+        float y = radius * Mathf.Sin(randAngle);
+
+        return new Vector2(x, y);
     }
 
     IEnumerator AADASD()
