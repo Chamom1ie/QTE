@@ -22,15 +22,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "ChangeActionMap",
-                    "type": "Button",
-                    "id": "99dde32c-9ae1-4be2-8d77-35176cf11f68",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -154,17 +145,6 @@
                     "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "336fcf5a-8ff3-4e75-a8c5-9cc59bdae88a",
-                    "path": "<Keyboard>/m",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyAndMouse",
-                    "action": "ChangeActionMap",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
@@ -174,21 +154,12 @@
             "actions": [
                 {
                     "name": "QTEInput",
-                    "type": "Value",
-                    "id": "52ded42e-b093-41fa-a35a-7bed0b17531a",
-                    "expectedControlType": "Key",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "ChangeActionMap",
                     "type": "Button",
-                    "id": "2c348a19-94b7-4bd1-9149-a2546321d3a4",
+                    "id": "52ded42e-b093-41fa-a35a-7bed0b17531a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -200,17 +171,6 @@
                     "processors": "",
                     "groups": "KeyAndMouse",
                     "action": "QTEInput",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "90385aae-95a5-48d2-9810-239e08b35b74",
-                    "path": "<Keyboard>/m",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyAndMouse",
-                    "action": "ChangeActionMap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
