@@ -44,6 +44,15 @@ public partial class @Control: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeActionMap"",
+                    ""type"": ""Button"",
+                    ""id"": ""99dde32c-9ae1-4be2-8d77-35176cf11f68"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -167,6 +176,17 @@ public partial class @Control: IInputActionCollection2, IDisposable
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""336fcf5a-8ff3-4e75-a8c5-9cc59bdae88a"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyAndMouse"",
+                    ""action"": ""ChangeActionMap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -182,6 +202,15 @@ public partial class @Control: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ChangeActionMap"",
+                    ""type"": ""Button"",
+                    ""id"": ""2c348a19-94b7-4bd1-9149-a2546321d3a4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -193,6 +222,17 @@ public partial class @Control: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""KeyAndMouse"",
                     ""action"": ""QTEInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""90385aae-95a5-48d2-9810-239e08b35b74"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyAndMouse"",
+                    ""action"": ""ChangeActionMap"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -222,9 +262,11 @@ public partial class @Control: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
+        m_Player_ChangeActionMap = m_Player.FindAction("ChangeActionMap", throwIfNotFound: true);
         // inQTE
         m_inQTE = asset.FindActionMap("inQTE", throwIfNotFound: true);
         m_inQTE_QTEInput = m_inQTE.FindAction("QTEInput", throwIfNotFound: true);
+        m_inQTE_ChangeActionMap = m_inQTE.FindAction("ChangeActionMap", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -288,12 +330,14 @@ public partial class @Control: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Attack;
+    private readonly InputAction m_Player_ChangeActionMap;
     public struct PlayerActions
     {
         private @Control m_Wrapper;
         public PlayerActions(@Control wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
+        public InputAction @ChangeActionMap => m_Wrapper.m_Player_ChangeActionMap;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -309,6 +353,9 @@ public partial class @Control: IInputActionCollection2, IDisposable
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
+            @ChangeActionMap.started += instance.OnChangeActionMap;
+            @ChangeActionMap.performed += instance.OnChangeActionMap;
+            @ChangeActionMap.canceled += instance.OnChangeActionMap;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -319,6 +366,9 @@ public partial class @Control: IInputActionCollection2, IDisposable
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
+            @ChangeActionMap.started -= instance.OnChangeActionMap;
+            @ChangeActionMap.performed -= instance.OnChangeActionMap;
+            @ChangeActionMap.canceled -= instance.OnChangeActionMap;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -341,11 +391,13 @@ public partial class @Control: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_inQTE;
     private List<IInQTEActions> m_InQTEActionsCallbackInterfaces = new List<IInQTEActions>();
     private readonly InputAction m_inQTE_QTEInput;
+    private readonly InputAction m_inQTE_ChangeActionMap;
     public struct InQTEActions
     {
         private @Control m_Wrapper;
         public InQTEActions(@Control wrapper) { m_Wrapper = wrapper; }
         public InputAction @QTEInput => m_Wrapper.m_inQTE_QTEInput;
+        public InputAction @ChangeActionMap => m_Wrapper.m_inQTE_ChangeActionMap;
         public InputActionMap Get() { return m_Wrapper.m_inQTE; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -358,6 +410,9 @@ public partial class @Control: IInputActionCollection2, IDisposable
             @QTEInput.started += instance.OnQTEInput;
             @QTEInput.performed += instance.OnQTEInput;
             @QTEInput.canceled += instance.OnQTEInput;
+            @ChangeActionMap.started += instance.OnChangeActionMap;
+            @ChangeActionMap.performed += instance.OnChangeActionMap;
+            @ChangeActionMap.canceled += instance.OnChangeActionMap;
         }
 
         private void UnregisterCallbacks(IInQTEActions instance)
@@ -365,6 +420,9 @@ public partial class @Control: IInputActionCollection2, IDisposable
             @QTEInput.started -= instance.OnQTEInput;
             @QTEInput.performed -= instance.OnQTEInput;
             @QTEInput.canceled -= instance.OnQTEInput;
+            @ChangeActionMap.started -= instance.OnChangeActionMap;
+            @ChangeActionMap.performed -= instance.OnChangeActionMap;
+            @ChangeActionMap.canceled -= instance.OnChangeActionMap;
         }
 
         public void RemoveCallbacks(IInQTEActions instance)
@@ -395,9 +453,11 @@ public partial class @Control: IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+        void OnChangeActionMap(InputAction.CallbackContext context);
     }
     public interface IInQTEActions
     {
         void OnQTEInput(InputAction.CallbackContext context);
+        void OnChangeActionMap(InputAction.CallbackContext context);
     }
 }

@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         Control control = new Control();
+        control.Player.Enable();
 
         cam = Camera.main;
 
