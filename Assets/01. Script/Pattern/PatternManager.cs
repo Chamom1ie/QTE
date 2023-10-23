@@ -8,7 +8,8 @@ using Random = UnityEngine.Random;
 public class PatternManager : MonoBehaviour
 {
     IEnumerator[] patterns;
-
+    [SerializeField]
+    GameObject bossPos;
     [Header("Bezier Pattern")]
     #region Bezier
     [SerializeField] private Player player;
@@ -69,12 +70,13 @@ public class PatternManager : MonoBehaviour
             int rand = Random.Range(2, patterns.Length);
             for (int i = 0; i < 5; i++) //뭐할까요 아래
             {
-                patterns = new IEnumerator[] { BezierPattern(), DashPattern(), CrossPattern(), LinearPattern(), AADASD() };
+                patterns = new IEnumerator[] { BezierPattern(), DashPattern(), LinearPattern(), CrossPattern(),  AADASD() };
                 print("patterngogo");
-                int random = Random.Range(0, 2);
+                int random = Random.Range(0, 3);
                 StartCoroutine(patterns[random]);
                 yield return new WaitForSeconds(patternDelay);
             }
+            boss.transform.DOMove(bossPos.transform.GetChild(Random.Range(0, bossPos.transform.childCount)).transform.position, 0.5f);
             yield return cooldown;
         }
     }
@@ -126,7 +128,7 @@ public class PatternManager : MonoBehaviour
     IEnumerator DashPattern()
     {
         int rand = Random.Range(2, 5);
-        patternDelay = 2 * rand;
+        patternDelay = 4;
         print("DashPattern");
 
         for (int i = 0; i < rand; i++)
@@ -167,8 +169,9 @@ public class PatternManager : MonoBehaviour
 
         foreach (GameObject obj in linearBullet)
         {
-            obj.GetComponent<LinearBullet>().SetDir(player.transform.position - obj.transform.position);
+            obj.GetComponent<LinearBullet>().SetDir(player.transform.position - obj.transform.position, Random.Range(0, 4));
         }
+        yield return new WaitForSeconds(0.55f);
     }
 
     private Vector2 RandomPoint()
