@@ -44,11 +44,16 @@ public class InputReader : ScriptableObject, IPlayerActions, IInQTEActions
 
     public void OnQTEInput(InputAction.CallbackContext context)
     {
+        Debug.Log("QTEInput");
         QTEEvent?.Invoke();
     }
 
     public void OnChangeActionMap(InputAction.CallbackContext context)
     {
-        ActionMapControl?.Invoke();
+        if (context.started)
+        {
+            ActionMapControl?.Invoke();
+            Debug.Log("ChangeActionMap");
+        }
     }
 }

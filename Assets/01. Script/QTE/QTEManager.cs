@@ -24,12 +24,15 @@ public class QTEManager : MonoBehaviour
         {
             QTEMap.Enable();
             playerMap.Disable();
-            Debug.Log("플레이어뒤짐");
+            _inputReader.GetControl().inQTE.SetCallbacks(_inputReader);
+            Debug.Log("QTEActionMap Enabled");
         }
         else if (QTEMap.enabled)
         {
             playerMap.Enable();
             QTEMap.Disable();
+            _inputReader.GetControl().Player.SetCallbacks(_inputReader);
+            Debug.Log("PlayerActionMap Enabled");
         }
     }
 }
