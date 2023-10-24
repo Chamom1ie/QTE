@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
         if (coll.enabled == false) return;
         coll.enabled = false;
         hp -= damage;
-        print("¸ÂÀ½");
+
         if (hp <= 0)
         {
             PlayerDead?.Invoke();

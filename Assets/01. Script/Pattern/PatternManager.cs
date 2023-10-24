@@ -44,7 +44,7 @@ public class PatternManager : MonoBehaviour
         sr = boss.GetComponent<SpriteRenderer>();
         
         firstColor = sr.color;
-        patterns = new IEnumerator[] { BezierPattern(), DashPattern(), CrossPattern(), LinearPattern(), AADASD() };
+        patterns = new IEnumerator[] { BezierPattern(), DashPattern(), CrossPattern(), CirclePattern() };
 
         for (int i = 0; i < _p.Length; i++)
         {
@@ -67,23 +67,27 @@ public class PatternManager : MonoBehaviour
         while (player.gameObject.activeSelf == true) // 들어옴
         {
             // 패턴 몇 개 할까요?
-            int rand = Random.Range(2, patterns.Length);
-            for (int i = 0; i < 5; i++) //뭐할까요 아래
+            int randPattern = Random.Range(2, patterns.Length);
+            for (int i = 0; i < 5; i++) 
             {
-                patterns = new IEnumerator[] { BezierPattern(), DashPattern(), LinearPattern(), CrossPattern(),  AADASD() };
-                print("patterngogo");
-                int random = Random.Range(0, 3);
+                patterns = new IEnumerator[] { BezierPattern(), DashPattern(), CirclePattern(), CrossPattern() };
+                print("Pattern Start");
+                int random = Random.Range(0, 4); //뭐할까요
                 StartCoroutine(patterns[random]);
                 yield return new WaitForSeconds(patternDelay);
             }
-            boss.transform.DOMove(bossPos.transform.GetChild(Random.Range(0, bossPos.transform.childCount)).transform.position, 0.5f);
+            yield return new WaitForSeconds(0.4f);
+            int rand = Random.Range(0, bossPos.transform.childCount);
+            Debug.Log(rand);
+            boss.transform.DOMove(bossPos.transform.GetChild(rand).transform.position, 0.5f);
             yield return cooldown;
+            
         }
     }
 
     IEnumerator BezierPattern()
     {
-        print("BezierPattern");
+        print("Bezier Pattern");
         patternDelay = 1.2f;
         float duration = 0.4f;
         float time;
@@ -101,7 +105,7 @@ public class PatternManager : MonoBehaviour
             Vector3 p5 = Vector3.Lerp(_p[1].position, _p[2].position, time);
             _target.position = Vector3.Lerp(p4, p5, time);
 
-            GameObject obj = Instantiate(enemyBullet, firstPos + (_target.position * randSign), Quaternion.identity);
+            GameObject obj = PoolManager.Get(enemyBullet, firstPos + (_target.position * randSign), Quaternion.identity);
 
             yield return null;
 
@@ -129,7 +133,7 @@ public class PatternManager : MonoBehaviour
     {
         int rand = Random.Range(2, 5);
         patternDelay = 4;
-        print("DashPattern");
+        print("Dash Pattern");
 
         for (int i = 0; i < rand; i++)
         {
@@ -145,6 +149,7 @@ public class PatternManager : MonoBehaviour
 
             yield return new WaitForSeconds(1.35f);
         }
+        yield return new WaitForSeconds(0.35f);
     }
 
     IEnumerator CrossPattern()
@@ -152,9 +157,10 @@ public class PatternManager : MonoBehaviour
         yield return null;
     }
 
-    IEnumerator LinearPattern()
+    IEnumerator CirclePattern()
     {
         linearBullet.Clear();
+        patternDelay = 2.5f;
         float duration = 0.4f;
         float time;
         Vector2 firstPlayerPos = player.transform.position;
@@ -184,10 +190,6 @@ public class PatternManager : MonoBehaviour
         return new Vector2(x, y);
     }
 
-    IEnumerator AADASD()
-    {
-        yield return null;
-    }
 
 
 }

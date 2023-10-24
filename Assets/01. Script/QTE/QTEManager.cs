@@ -14,9 +14,6 @@ public class QTEManager : MonoBehaviour
         playerMap = _inputReader.GetControl().FindAction("Movement")?.actionMap;
         QTEMap = _inputReader.GetControl().FindAction("QTEInput")?.actionMap;
 
-        Debug.Log(playerMap);
-        Debug.Log(QTEMap);
-
         if (instance == null) instance = this;
 
     }

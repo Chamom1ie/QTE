@@ -111,7 +111,7 @@ public static class PoolManager
         {
             OnExiting += Instance.Clear;
             OnSceneUnloaded += Instance.Clear;
-            Debug.Log("PoolManager Initialized - " + typeof(T));
+            //Debug.Log("PoolManager Initialized - " + typeof(T));
         }
 
         public static Pool<T> Instance { get; } = new();
