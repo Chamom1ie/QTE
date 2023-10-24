@@ -78,8 +78,9 @@ public class PatternManager : MonoBehaviour
             }
             yield return new WaitForSeconds(0.4f);
             int rand = Random.Range(0, bossPos.transform.childCount);
-            Debug.Log(rand);
-            boss.transform.DOMove(bossPos.transform.GetChild(rand).transform.position, 0.5f);
+            Sequence seq = DOTween.Sequence();
+            seq.Append(boss.transform.DOMove(bossPos.transform.GetChild(rand).transform.position, 0.5f));
+            seq.Append(boss.transform.DORotate(new Vector3(0, 0, -180), 0.3f).SetEase(Ease.InCubic));
             yield return cooldown;
             
         }
