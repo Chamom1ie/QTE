@@ -9,6 +9,8 @@ public class Boss : MonoBehaviour
     Player player;
     int hp = 200;
 
+    int shotgunCount = 8;
+
     public delegate void ShotArr();
     public ShotArr[] Funcs = new ShotArr[2];
 
@@ -34,17 +36,17 @@ public class Boss : MonoBehaviour
     {
         Vector2 dirMin = player.transform.position - transform.position + Vector3.down * 5;
         Vector2 dirMax = player.transform.position - transform.position + Vector3.up * 5;
-        for (int i = 1; i <= 8; i++)
+        for (int i = 1; i <= shotgunCount; i++)
         {
-            int cnt = 1;
             GameObject bullet = PoolManager.Get(bulletPrf, transform.position, Quaternion.identity);
-            bullet.GetComponent<BossBullet>().SetDir(Vector2.Lerp(dirMin, dirMax, cnt / 8));
-            ++cnt;
-
-            Debug.Log(dirMin);
-            Debug.Log(dirMax);
-            Debug.Log(Vector2.Lerp(dirMin, dirMax, i / 8));
+            bullet.GetComponent<BossBullet>().SetDir(LerpFunc(dirMin, dirMax, i));
+            Debug.Log(LerpFunc(dirMin, dirMax, i));
         }
+    }
+    
+    Vector2 LerpFunc(Vector2 dirMin , Vector2 dirMax, int cnt)
+    {
+        return Vector2.Lerp(dirMin, dirMax, cnt / shotgunCount);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
