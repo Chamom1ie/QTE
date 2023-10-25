@@ -177,9 +177,8 @@ public class PatternManager : MonoBehaviour
             obj.GetComponent<LinearBullet>().SetDir(player.transform.position - obj.transform.position, Random.Range(0, 4));
         }
         yield return new WaitForSeconds(0.55f);
-    }
-
-    private Vector2 RandomPoint()
+    } 
+    Vector2 RandomPoint()
     {
         float randAngle = Random.Range(0f, 2f * Mathf.PI);
 
@@ -188,4 +187,5 @@ public class PatternManager : MonoBehaviour
 
         return new Vector2(x, y);
     }
+
 }
