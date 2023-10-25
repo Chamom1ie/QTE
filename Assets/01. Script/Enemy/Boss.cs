@@ -9,7 +9,7 @@ public class Boss : MonoBehaviour
     Player player;
     int hp = 200;
 
-    int shotgunCount = 8;
+    float shotgunCount = 8;
 
     public delegate void ShotArr();
     public ShotArr[] Funcs = new ShotArr[2];
@@ -39,14 +39,9 @@ public class Boss : MonoBehaviour
         for (int i = 1; i <= shotgunCount; i++)
         {
             GameObject bullet = PoolManager.Get(bulletPrf, transform.position, Quaternion.identity);
-            bullet.GetComponent<BossBullet>().SetDir(LerpFunc(dirMin, dirMax, i));
-            Debug.Log(LerpFunc(dirMin, dirMax, i));
+            bullet.GetComponent<BossBullet>().SetDir(Vector2.Lerp(dirMin, dirMax, i / shotgunCount));
+            Debug.Log(Vector2.Lerp(dirMin, dirMax, i / shotgunCount))
         }
-    }
-    
-    Vector2 LerpFunc(Vector2 dirMin , Vector2 dirMax, int cnt)
-    {
-        return Vector2.Lerp(dirMin, dirMax, cnt / shotgunCount);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
