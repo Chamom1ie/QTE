@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6314091221768372021}
   - component: {fileID: 1058076380532250206}
-  - component: {fileID: 6983346027552644297}
   - component: {fileID: 389000077473058454}
   - component: {fileID: 4974137451660704917}
+  - component: {fileID: 6983346027552644297}
+  - component: {fileID: 4314934665051482152}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Enemy
@@ -28,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3836898119291822470}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 4.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -88,18 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6983346027552644297
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3836898119291822470}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9305832f08b535840af17a9b31bb55a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &389000077473058454
 Rigidbody2D:
   serializedVersion: 4
@@ -172,6 +161,32 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &6983346027552644297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3836898119291822470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9305832f08b535840af17a9b31bb55a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrf: {fileID: 1926925626609006952, guid: 17f4c071d6c96ad488d7a5dd3c1d88cb, type: 3}
+--- !u!114 &4314934665051482152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3836898119291822470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92ad7b4c303ee65438c846169a3beb6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laser: {fileID: 7864979030878626673}
 --- !u!1 &5434869209284651525
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,14 +211,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5434869209284651525}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8640206157220393759}
   m_Father: {fileID: 6314091221768372021}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.87}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &7232604022616309184
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -215,6 +230,10 @@ PrefabInstance:
     - target: {fileID: 682677750060916401, guid: 2701ab0562a4a4d449f444bd327cd3e9, type: 3}
       propertyPath: m_Name
       value: Laser
+      objectReference: {fileID: 0}
+    - target: {fileID: 682677750060916401, guid: 2701ab0562a4a4d449f444bd327cd3e9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1281959842812142911, guid: 2701ab0562a4a4d449f444bd327cd3e9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -267,6 +286,10 @@ PrefabInstance:
     - target: {fileID: 8605265416754168764, guid: 2701ab0562a4a4d449f444bd327cd3e9, type: 3}
       propertyPath: m_Positions.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8605265416754168764, guid: 2701ab0562a4a4d449f444bd327cd3e9, type: 3}
+      propertyPath: m_Positions.Array.data[1].x
+      value: 19.5
       objectReference: {fileID: 0}
     - target: {fileID: 8605265416754168764, guid: 2701ab0562a4a4d449f444bd327cd3e9, type: 3}
       propertyPath: m_Positions.Array.data[1].y
@@ -388,7 +411,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -418,6 +441,11 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5, y: 0.1}
   m_EdgeRadius: 0
+--- !u!1 &7864979030878626673 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 682677750060916401, guid: 2701ab0562a4a4d449f444bd327cd3e9, type: 3}
+  m_PrefabInstance: {fileID: 7232604022616309184}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8640206157220393759 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1420730312032816863, guid: 2701ab0562a4a4d449f444bd327cd3e9, type: 3}

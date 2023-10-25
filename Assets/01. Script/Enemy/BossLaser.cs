@@ -7,9 +7,9 @@ public class BossLaserPattern : MonoBehaviour
 {
     [SerializeField] GameObject laser;
 
-    delegate void SeqArr();
+    public delegate void SeqArr();
 
-    SeqArr[] sequences = new SeqArr[4];
+    public SeqArr[] sequences = new SeqArr[4];
 
     private void OnEnable()
     {
@@ -17,10 +17,6 @@ public class BossLaserPattern : MonoBehaviour
         sequences[1] = BotSeq;
         sequences[2] = LeftSeq;
         sequences[3] = RightSeq;
-
-        int rand = Random.Range(0, sequences.Length);
-        Debug.Log(rand);
-        sequences[rand]();
     }
 
     void TopSeq()

@@ -36,7 +36,7 @@ public class PatternManager : MonoBehaviour
     [SerializeField] List<GameObject> linearBullet = new();
     [SerializeField] GameObject linearBulletPrf; 
     #endregion
-    WaitForSeconds cooldown = new(10);
+    WaitForSeconds cooldown = new(5);
     float patternDelay = 1;
     private void Awake()
     {
@@ -77,10 +77,8 @@ public class PatternManager : MonoBehaviour
                 yield return new WaitForSeconds(patternDelay);
             }
             yield return new WaitForSeconds(0.4f);
-            int rand = Random.Range(0, bossPos.transform.childCount);
-            Sequence seq = DOTween.Sequence();
-            seq.Append(boss.transform.DOMove(bossPos.transform.GetChild(rand).transform.position, 0.5f));
-            seq.Append(boss.transform.DORotate(new Vector3(0, 0, -180), 0.3f).SetEase(Ease.InCubic));
+            int randLaser = Random.Range(0, 4);
+            boss.GetComponent<BossLaserPattern>().sequences[randLaser]();
             yield return cooldown;
             
         }
@@ -133,7 +131,7 @@ public class PatternManager : MonoBehaviour
     IEnumerator DashPattern()
     {
         int rand = Random.Range(2, 5);
-        patternDelay = 4;
+        patternDelay = 2 * rand;
         print("Dash Pattern");
 
         for (int i = 0; i < rand; i++)
@@ -144,7 +142,7 @@ public class PatternManager : MonoBehaviour
             seq.Append(boss.transform.DOMove(player.transform.position + new Vector3(Random.Range(-2, 3), Random.Range(-1, 2)), 0.6f));
             seq.AppendCallback(() =>
             {
-                boss.GetComponent<Boss>().BurstEnemy(bossBullet);
+                boss.GetComponent<Boss>().Funcs[Random.Range(0,2)]();
                 sr.color = firstColor;
             });
 
@@ -161,7 +159,7 @@ public class PatternManager : MonoBehaviour
     IEnumerator CirclePattern()
     {
         linearBullet.Clear();
-        patternDelay = 2.5f;
+        patternDelay = 1.75f;
         float duration = 0.4f;
         float time;
         Vector2 firstPlayerPos = player.transform.position;
@@ -190,7 +188,4 @@ public class PatternManager : MonoBehaviour
 
         return new Vector2(x, y);
     }
-
-
-
 }
