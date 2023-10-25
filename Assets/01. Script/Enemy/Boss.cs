@@ -9,7 +9,7 @@ public class Boss : MonoBehaviour
     Player player;
     int hp = 200;
 
-    float shotgunCount = 8;
+    float shotgunCount = 6;
 
     public delegate void ShotArr();
     public ShotArr[] Funcs = new ShotArr[2];
@@ -34,13 +34,13 @@ public class Boss : MonoBehaviour
 
     public void Shotgun()
     {
-        Vector2 dirMin = player.transform.position - transform.position + Vector3.down * 5;
-        Vector2 dirMax = player.transform.position - transform.position + Vector3.up * 5;
+        Vector2 dirMin = player.transform.position - transform.position + Vector3.down * 2 + Vector3.left * 2;
+        Vector2 dirMax = player.transform.position - transform.position + Vector3.up * 2 + Vector3.right * 2;
         for (int i = 1; i <= shotgunCount; i++)
         {
             GameObject bullet = PoolManager.Get(bulletPrf, transform.position, Quaternion.identity);
             bullet.GetComponent<BossBullet>().SetDir(Vector2.Lerp(dirMin, dirMax, i / shotgunCount));
-            Debug.Log(Vector2.Lerp(dirMin, dirMax, i / shotgunCount))
+            Debug.Log(Vector2.Lerp(dirMin, dirMax, i / shotgunCount));
         }
     }
 
