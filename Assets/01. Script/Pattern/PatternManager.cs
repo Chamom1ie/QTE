@@ -139,11 +139,7 @@ public class PatternManager : MonoBehaviour
             Sequence seq = DOTween.Sequence();
 
             seq.Append(sr.DOColor(bossRed, 0.65f));
-            seq.Append(boss.transform.DOMove(player.transform.position + new Vector3(Random.Range(-2, 3), Random.Range(-1, 2)), 0.6f)).OnComplete(
-                () =>
-                {
-                    //EZCameraShake.CameraShaker.Instance.ShakeOnce(magn, rough, fadeIn, fadeOut);
-                });
+            seq.Append(boss.transform.DOMove(player.transform.position + new Vector3(Random.Range(-2, 3), Random.Range(-1, 2)), 0.6f));
             seq.AppendCallback(() =>
             {
                 boss.GetComponent<Boss>().Funcs[Random.Range(0,2)]();
