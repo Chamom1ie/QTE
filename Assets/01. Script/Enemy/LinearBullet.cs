@@ -25,13 +25,4 @@ public class LinearBullet : Bullets
     {
         CollisionAny(collision);
     }
-
-    public override void CollisionAny(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Destroy(gameObject);
-            collision.GetComponent<Player>().OnHit(damage);
-        }
-    }
 }

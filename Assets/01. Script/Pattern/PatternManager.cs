@@ -121,10 +121,13 @@ public class PatternManager : MonoBehaviour
         print("타 타 타게팅");
         Array.Clear(bullets, 0, bullets.Length); 
         bullets = FindObjectsOfType<BezierBullet>();
+        CamManager.instance.StartShake(30, 0.25f);
         foreach (BezierBullet bullet in bullets)
         {
-            if(bullet.gameObject.tag == "StandBy") 
+            if (bullet.gameObject.tag == "StandBy")
+            {
                 bullet.SetDir((player.transform.position - bullet.transform.position).normalized);
+            }
         }
     }
 
@@ -139,10 +142,12 @@ public class PatternManager : MonoBehaviour
             Sequence seq = DOTween.Sequence();
 
             seq.Append(sr.DOColor(bossRed, 0.65f));
+            seq.AppendCallback(() => CamManager.instance.StartShake(5, 0.2f));
             seq.Append(boss.transform.DOMove(player.transform.position + new Vector3(Random.Range(-2, 3), Random.Range(-1, 2)), 0.6f));
             seq.AppendCallback(() =>
             {
-                boss.GetComponent<Boss>().Funcs[Random.Range(0,2)]();
+                var bossFuncs = boss.GetComponent<Boss>().Funcs;
+                bossFuncs[Random.Range(0, bossFuncs.Length)]();
                 sr.color = firstColor;
             });
 
@@ -171,12 +176,12 @@ public class PatternManager : MonoBehaviour
 
             yield return null;
         }
-
+        CamManager.instance.StartShake(6, 0.1f);
         foreach (GameObject obj in linearBullet)
         {
             obj.GetComponent<LinearBullet>().SetDir(player.transform.position - obj.transform.position, Random.Range(0, 4));
         }
-        yield return new WaitForSeconds(0.55f);
+        yield return new WaitForSeconds(0.75f);
     } 
     Vector2 RandomPoint()
     {
