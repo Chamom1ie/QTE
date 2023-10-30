@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     }
     public void OnHit(int damage)
     {
+        print($"{damage}의 피해를 입음");
         if (coll.enabled == false) return;
         coll.enabled = false;
         StartCoroutine(TimeScaler());

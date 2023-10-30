@@ -43,7 +43,6 @@ public class Boss : MonoBehaviour
             GameObject bullet = PoolManager.Get(bulletPrf, transform.position, Quaternion.identity);
             bullet.GetComponent<BossBullet>().SetDir(Vector2.Lerp(dirMin, dirMax, i / shotgunCount));
             CamManager.instance.StartShake(7, 0.2f);
-            Debug.Log(Vector2.Lerp(dirMin, dirMax, i / shotgunCount));
         }
     }
 
@@ -53,7 +52,7 @@ public class Boss : MonoBehaviour
         if (collision.CompareTag("PlayerBullet"))
         {
             hp -= collision.GetComponent<PlayerBullet>().damage;
-            Debug.Log(hp);
+            print("hit");
             PoolManager.Release(collision.gameObject);
         }
     }

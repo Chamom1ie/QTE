@@ -8,7 +8,6 @@ public class Laser : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            print("ÁöÀÌÀ×");
             collision.GetComponent<Player>().OnHit(3);
         }
     }

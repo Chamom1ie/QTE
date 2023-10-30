@@ -47,7 +47,7 @@ public partial class @Control: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Dash"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""fce87879-363e-472c-a72f-1ebc7407bbd6"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -195,7 +195,7 @@ public partial class @Control: IInputActionCollection2, IDisposable
             ""id"": ""4ff04fc3-397e-44c0-bc01-533cd24cc0bf"",
             ""actions"": [
                 {
-                    ""name"": ""QTEInput"",
+                    ""name"": ""SpaceQTE"",
                     ""type"": ""Button"",
                     ""id"": ""52ded42e-b093-41fa-a35a-7bed0b17531a"",
                     ""expectedControlType"": ""Button"",
@@ -208,11 +208,11 @@ public partial class @Control: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0649ec0e-e3f6-4463-903f-04bd767ca97d"",
-                    ""path"": ""<Keyboard>/anyKey"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyAndMouse"",
-                    ""action"": ""QTEInput"",
+                    ""action"": ""SpaceQTE"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -245,7 +245,7 @@ public partial class @Control: IInputActionCollection2, IDisposable
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         // inQTE
         m_inQTE = asset.FindActionMap("inQTE", throwIfNotFound: true);
-        m_inQTE_QTEInput = m_inQTE.FindAction("QTEInput", throwIfNotFound: true);
+        m_inQTE_SpaceQTE = m_inQTE.FindAction("SpaceQTE", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -369,12 +369,12 @@ public partial class @Control: IInputActionCollection2, IDisposable
     // inQTE
     private readonly InputActionMap m_inQTE;
     private List<IInQTEActions> m_InQTEActionsCallbackInterfaces = new List<IInQTEActions>();
-    private readonly InputAction m_inQTE_QTEInput;
+    private readonly InputAction m_inQTE_SpaceQTE;
     public struct InQTEActions
     {
         private @Control m_Wrapper;
         public InQTEActions(@Control wrapper) { m_Wrapper = wrapper; }
-        public InputAction @QTEInput => m_Wrapper.m_inQTE_QTEInput;
+        public InputAction @SpaceQTE => m_Wrapper.m_inQTE_SpaceQTE;
         public InputActionMap Get() { return m_Wrapper.m_inQTE; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -384,16 +384,16 @@ public partial class @Control: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_InQTEActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_InQTEActionsCallbackInterfaces.Add(instance);
-            @QTEInput.started += instance.OnQTEInput;
-            @QTEInput.performed += instance.OnQTEInput;
-            @QTEInput.canceled += instance.OnQTEInput;
+            @SpaceQTE.started += instance.OnSpaceQTE;
+            @SpaceQTE.performed += instance.OnSpaceQTE;
+            @SpaceQTE.canceled += instance.OnSpaceQTE;
         }
 
         private void UnregisterCallbacks(IInQTEActions instance)
         {
-            @QTEInput.started -= instance.OnQTEInput;
-            @QTEInput.performed -= instance.OnQTEInput;
-            @QTEInput.canceled -= instance.OnQTEInput;
+            @SpaceQTE.started -= instance.OnSpaceQTE;
+            @SpaceQTE.performed -= instance.OnSpaceQTE;
+            @SpaceQTE.canceled -= instance.OnSpaceQTE;
         }
 
         public void RemoveCallbacks(IInQTEActions instance)
@@ -428,6 +428,6 @@ public partial class @Control: IInputActionCollection2, IDisposable
     }
     public interface IInQTEActions
     {
-        void OnQTEInput(InputAction.CallbackContext context);
+        void OnSpaceQTE(InputAction.CallbackContext context);
     }
 }

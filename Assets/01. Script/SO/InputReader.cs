@@ -42,20 +42,19 @@ public class InputReader : ScriptableObject, IPlayerActions, IInQTEActions
         if(context.started) AttackEvent?.Invoke();
     }
 
-    public void OnQTEInput(InputAction.CallbackContext context)
+    public void OnDash(InputAction.CallbackContext context)
     {
-        Debug.Log("QTEInput");
-        if (context.performed)
+        if (context.started)
         {
-            QTEEvent?.Invoke();
+            DashEvent?.Invoke();
         }
     }
 
-    public void OnDash(InputAction.CallbackContext context)
+    public void OnSpaceQTE(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.started)
         {
-            DashEvent?.Invoke();
+            QTEEvent?.Invoke();
         }
     }
 }

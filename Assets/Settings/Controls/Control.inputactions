@@ -25,7 +25,7 @@
                 },
                 {
                     "name": "Dash",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "fce87879-363e-472c-a72f-1ebc7407bbd6",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -173,7 +173,7 @@
             "id": "4ff04fc3-397e-44c0-bc01-533cd24cc0bf",
             "actions": [
                 {
-                    "name": "QTEInput",
+                    "name": "SpaceQTE",
                     "type": "Button",
                     "id": "52ded42e-b093-41fa-a35a-7bed0b17531a",
                     "expectedControlType": "Button",
@@ -186,11 +186,11 @@
                 {
                     "name": "",
                     "id": "0649ec0e-e3f6-4463-903f-04bd767ca97d",
-                    "path": "<Keyboard>/anyKey",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyAndMouse",
-                    "action": "QTEInput",
+                    "action": "SpaceQTE",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -72,7 +72,7 @@ public class PatternManager : MonoBehaviour
             {
                 patterns = new IEnumerator[] { BezierPattern(), DashPattern(), CirclePattern(), CrossPattern() };
                 print("Pattern Start");
-                int random = Random.Range(0, 4); //뭐할까요
+                int random = Random.Range(0, 3); //뭐할까요
                 StartCoroutine(patterns[random]);
                 yield return new WaitForSeconds(patternDelay);
             }
@@ -86,7 +86,6 @@ public class PatternManager : MonoBehaviour
 
     IEnumerator BezierPattern()
     {
-        print("Bezier Pattern");
         patternDelay = 1.2f;
         float duration = 0.4f;
         float time;
@@ -118,7 +117,6 @@ public class PatternManager : MonoBehaviour
     }
     void Targetting()
     {
-        print("타 타 타게팅");
         Array.Clear(bullets, 0, bullets.Length); 
         bullets = FindObjectsOfType<BezierBullet>();
         CamManager.instance.StartShake(30, 0.25f);
@@ -135,7 +133,6 @@ public class PatternManager : MonoBehaviour
     {
         int rand = Random.Range(2, 5);
         patternDelay = 2 * rand;
-        print("Dash Pattern");
 
         for (int i = 0; i < rand; i++)
         {
@@ -158,7 +155,6 @@ public class PatternManager : MonoBehaviour
 
     IEnumerator CrossPattern()
     {
-        print("ㅋㅋ없는패턴");
         yield return null;
     }
 

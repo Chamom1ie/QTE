@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private InputReader _inputReader;
     Vector2 lastDir;
     private Rigidbody2D _rigidbody;
+    SpriteRenderer sr;
 
     private bool isCooldown = false;
     private float dashCool = 3f;
@@ -20,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _coll = GetComponent<BoxCollider2D>();
+        sr = GetComponent<SpriteRenderer>();
 
         _inputReader.MovementEvent += MovementHandle;
         _inputReader.DashEvent += DashHandle;
@@ -32,7 +34,6 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        print(lastDir);
         if (isCooldown)
         {
             if (Time.time - lastDashTime >= dashCool)
@@ -53,20 +54,28 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isCooldown)
         {
-            StartCoroutine(DashRoutine());
             isCooldown = true;
+            lastDashTime = Time.time;
+            StartCoroutine(DashRoutine());
         }
     }
 
     IEnumerator DashRoutine()
     {
+
         _inputReader.MovementEvent -= MovementHandle;
+        Color wasColor = sr.color;
+        sr.color = Color.white;
+         Vector2 lastVel = _rigidbody.velocity;
+        print("¹«Àû");
         _coll.enabled = false;
-        Vector2 lastVel = _rigidbody.velocity;
-        _rigidbody.velocity = 2 * speed * lastDir;
+
+        _rigidbody.velocity = 1.7f * speed * lastDir;
         yield return dashTime;
+        sr.color = wasColor;
         _rigidbody.velocity = lastVel;
-        _inputReader.MovementEvent += MovementHandle;
+
         _coll.enabled = true;
+        _inputReader.MovementEvent += MovementHandle;
     }
 }
