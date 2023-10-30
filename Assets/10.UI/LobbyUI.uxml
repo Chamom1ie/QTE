@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd">
+    <Style src="project://database/Assets/LobbyUI.uss?fileID=7433441132597879392&amp;guid=d96aa6425e6ffd447a111e99a520252d&amp;type=3#LobbyUI" />
+    <ui:VisualElement name="container" style="flex-grow: 1; justify-content: flex-end;">
+        <ui:VisualElement name="btn-row" style="flex-basis: 20%; align-items: center; justify-content: space-around; background-color: rgb(0, 0, 0); flex-direction: row; padding-right: 15%; padding-left: 15%;">
+            <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" name="start-btn" class="button" />
+            <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" name="setting-btn" class="button" style="flex-basis: 25%;" />
+            <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" name="quit-btn" class="button" style="flex-basis: 25%;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

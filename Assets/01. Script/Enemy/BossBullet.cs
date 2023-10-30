@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossBullet : Bullets
 {
-    Rigidbody2D _rigid2d;
+    
     float speed = 7;
 
     private void Awake()

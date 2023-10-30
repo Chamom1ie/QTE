@@ -24,7 +24,7 @@ public class BossLaserPattern : MonoBehaviour
         Sequence seq = DOTween.Sequence();
         int randSign = (Random.Range(0, 2) == 0) ? 1 : -1;
         transform.eulerAngles = Vector3.zero;
-         transform.localScale = new Vector2(randSign, 1);
+        transform.localScale = new Vector2(randSign, 1);
         seq.Append(transform.DOMove(new Vector2(0, 4.5f), 0.5f).OnComplete(
             () =>
             {

@@ -23,23 +23,30 @@ public class Player : MonoBehaviour
     {
         if (coll.enabled == false) return;
         coll.enabled = false;
+        StartCoroutine(TimeScaler());
+        CamManager.instance.StartShake(7, 0.08f);
+        StartCoroutine(HitRoutine());
         hp -= damage;
-
         if (hp <= 0)
         {
             PlayerDead?.Invoke();
             gameObject.SetActive(false);
         }
-        StartCoroutine(HitRoutine());
     }
 
     IEnumerator HitRoutine()
     {
         Tween fadeTween = sr.DOFade(0.2f, 0.15f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
         yield return new WaitForSeconds(invincibleTime);
-
         fadeTween.Kill();
         sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1);
         coll.enabled = true;
+    }
+
+    IEnumerator TimeScaler()
+    {
+        Time.timeScale = 0.2f;
+        yield return new WaitForSeconds(0.03f);
+        Time.timeScale = 1;
     }
 }

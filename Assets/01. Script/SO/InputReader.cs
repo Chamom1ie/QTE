@@ -11,8 +11,9 @@ public class InputReader : ScriptableObject, IPlayerActions, IInQTEActions
     public event Action<Vector2> MovementEvent;
     public event Action AttackEvent;
     public event Action QTEEvent;
+    public event Action DashEvent;
 
-    public event Action ActionMapControl;
+    //public event Action ActionMapControl;
 
     private Control _control;
     public Control GetControl()
@@ -38,7 +39,6 @@ public class InputReader : ScriptableObject, IPlayerActions, IInQTEActions
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        bool value = context.ReadValueAsButton();
         if(context.started) AttackEvent?.Invoke();
     }
 
@@ -48,6 +48,14 @@ public class InputReader : ScriptableObject, IPlayerActions, IInQTEActions
         if (context.performed)
         {
             QTEEvent?.Invoke();
+        }
+    }
+
+    public void OnDash(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            DashEvent?.Invoke();
         }
     }
 }

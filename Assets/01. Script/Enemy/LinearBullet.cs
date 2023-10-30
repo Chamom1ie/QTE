@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class LinearBullet : Bullets
 {
-    Rigidbody2D _rigid2d;
     float speed = 8.5f;
     private void Awake()
     {
@@ -18,7 +17,7 @@ public class LinearBullet : Bullets
     }
     public async void SetDir(Vector3 moveDir, int millisec)
     {
-        await Task.Delay(millisec * 100);
+        await Task.Delay(millisec * 60);
         dir = moveDir;
     }
     private void OnTriggerEnter2D(Collider2D collision)

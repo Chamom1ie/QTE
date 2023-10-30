@@ -12,14 +12,14 @@ public class Boss : MonoBehaviour
     float shotgunCount = 6;
 
     public delegate void ShotArr();
-    public ShotArr[] Funcs = new ShotArr[3];
+    public ShotArr[] Funcs = new ShotArr[2];
 
     void Awake()
     {
         player = FindObjectOfType<Player>();
         Funcs[0] = BurstEnemy;
         Funcs[1] = Shotgun;
-        Funcs[2] = SideToMid;
+        //Funcs[2] = SideToMid;
     }
 
     public async void BurstEnemy()
@@ -47,29 +47,13 @@ public class Boss : MonoBehaviour
         }
     }
 
-    public async void SideToMid()
-    {
-        Vector2 sideDir1 = player.transform.position - transform.position + Vector3.down * 2 + Vector3.left * 2;
-        Vector2 sideDir2 = player.transform.position - transform.position + Vector3.up * 2 + Vector3.right * 2;
-        Vector2 playerPos = player.transform.position;
-        for (int i = 1; i <= 4; i++)
-        {
-            GameObject bullet = PoolManager.Get(bulletPrf, transform.position, Quaternion.identity);
-            bullet.GetComponent<BossBullet>().SetDir(Vector2.Lerp(sideDir1, playerPos, i / 4f));
-            CamManager.instance.StartShake(7, 0.2f);
-            GameObject bullet2 = PoolManager.Get(bulletPrf, transform.position, Quaternion.identity);
-            bullet2.GetComponent<BossBullet>().SetDir(Vector2.Lerp(sideDir2, playerPos, i / 4f));
-            CamManager.instance.StartShake(7, 0.2f);
-            await Task.Delay(120);
-        }
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     { 
 
         if (collision.CompareTag("PlayerBullet"))
         {
             hp -= collision.GetComponent<PlayerBullet>().damage;
+            Debug.Log(hp);
             PoolManager.Release(collision.gameObject);
         }
     }

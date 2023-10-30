@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class PlayerBullet : Bullets
 {
-    Rigidbody2D _rigid2d;
     float speed = 6;
     private void Awake()
     {
         _rigid2d = GetComponent<Rigidbody2D>();
-        Destroy(gameObject, 4);
     }
 
     void Update()
@@ -21,6 +19,8 @@ public class PlayerBullet : Bullets
     {
         if (collision.CompareTag("BulletBorder"))
         {
+            dir = Vector3.zero;
+            _rigid2d.velocity = Vector2.zero;
             PoolManager.Release(gameObject);
         }
     }

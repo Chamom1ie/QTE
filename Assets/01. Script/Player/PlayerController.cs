@@ -34,14 +34,6 @@ public class PlayerController : MonoBehaviour
                 isCooldown = false;
             }
         }
-        if (Keyboard.current.kKey.wasPressedThisFrame)
-        {
-            QTEManager.instance.ActionMapToQTE();
-        }
-        if (Keyboard.current.lKey.wasPressedThisFrame)
-        {
-            QTEManager.instance.ActionMapToPlayer();
-        }
     }
 
     void Attack()

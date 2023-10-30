@@ -8,8 +8,7 @@ using Random = UnityEngine.Random;
 public class PatternManager : MonoBehaviour
 {
     IEnumerator[] patterns;
-    [SerializeField]
-    GameObject bossPos;
+    [SerializeField] Transform BossController;
     [Header("Bezier Pattern")]
     #region Bezier
     [SerializeField] private Player player;
@@ -25,7 +24,7 @@ public class PatternManager : MonoBehaviour
     #region Dash
     [SerializeField] Color bossRed;
     [SerializeField] GameObject bossBullet;
-    GameObject boss;
+    [SerializeField] GameObject boss;
     SpriteRenderer sr;
     private Color firstColor;
     #endregion
@@ -37,7 +36,7 @@ public class PatternManager : MonoBehaviour
     [SerializeField] GameObject linearBulletPrf; 
     #endregion
     WaitForSeconds cooldown = new(5);
-    float patternDelay = 1;
+    float patternDelay = 3;
     private void Awake()
     {
         boss = FindObjectOfType<Boss>().gameObject;
@@ -55,6 +54,7 @@ public class PatternManager : MonoBehaviour
     private void OnEnable()
     {
         player.PlayerDead += () => gameObject.SetActive(false);
+        player.PlayerDead += () => Time.timeScale = 1;
     }
 
     private void Start()
@@ -68,7 +68,7 @@ public class PatternManager : MonoBehaviour
         {
             // 패턴 몇 개 할까요?
             int randPattern = Random.Range(2, patterns.Length);
-            for (int i = 0; i < 5; i++) 
+            for (int i = 0; i < randPattern; i++) 
             {
                 patterns = new IEnumerator[] { BezierPattern(), DashPattern(), CirclePattern(), CrossPattern() };
                 print("Pattern Start");
@@ -78,7 +78,7 @@ public class PatternManager : MonoBehaviour
             }
             yield return new WaitForSeconds(0.4f);
             int randLaser = Random.Range(0, 4);
-            boss.GetComponent<BossLaserPattern>().sequences[randLaser]();
+            BossController.GetComponent<BossLaserPattern>().sequences[randLaser]();
             yield return cooldown;
             
         }
@@ -143,7 +143,7 @@ public class PatternManager : MonoBehaviour
 
             seq.Append(sr.DOColor(bossRed, 0.65f));
             seq.AppendCallback(() => CamManager.instance.StartShake(5, 0.2f));
-            seq.Append(boss.transform.DOMove(player.transform.position + new Vector3(Random.Range(-2, 3), Random.Range(-1, 2)), 0.6f));
+            seq.Append(BossController.DOMove(player.transform.position + new Vector3(Random.Range(-2, 3), Random.Range(-1, 2)), 0.6f));
             seq.AppendCallback(() =>
             {
                 var bossFuncs = boss.GetComponent<Boss>().Funcs;
@@ -158,6 +158,7 @@ public class PatternManager : MonoBehaviour
 
     IEnumerator CrossPattern()
     {
+        print("ㅋㅋ없는패턴");
         yield return null;
     }
 
@@ -179,10 +180,11 @@ public class PatternManager : MonoBehaviour
         CamManager.instance.StartShake(6, 0.1f);
         foreach (GameObject obj in linearBullet)
         {
-            obj.GetComponent<LinearBullet>().SetDir(player.transform.position - obj.transform.position, Random.Range(0, 4));
+            obj?.GetComponent<LinearBullet>().SetDir(player.transform.position - obj.transform.position, Random.Range(0, 4));
         }
         yield return new WaitForSeconds(0.75f);
     } 
+
     Vector2 RandomPoint()
     {
         float randAngle = Random.Range(0f, 2f * Mathf.PI);
@@ -192,5 +194,4 @@ public class PatternManager : MonoBehaviour
 
         return new Vector2(x, y);
     }
-
 }

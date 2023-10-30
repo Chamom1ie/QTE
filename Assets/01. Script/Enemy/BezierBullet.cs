@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BezierBullet : Bullets
 {
-    Rigidbody2D _rigid2d;
     float speed = 7;
     private void Awake()
     {
@@ -31,12 +30,18 @@ public class BezierBullet : Bullets
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Destroy(gameObject);
+            gameObject.tag = "StandBy";
+            dir = Vector3.zero;
+            _rigid2d.velocity = Vector2.zero;
+            PoolManager.Release(gameObject);
             collision.GetComponent<Player>().OnHit(damage);
         }
         if (collision.gameObject.CompareTag("BulletBorder"))
         {
-            Destroy(gameObject);
+            gameObject.tag = "StandBy";
+            dir = Vector3.zero;
+            _rigid2d.velocity = Vector2.zero;
+            PoolManager.Release(gameObject);
         }
     }
 }
