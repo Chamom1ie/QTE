@@ -21,8 +21,8 @@ public class Player : MonoBehaviour
     }
     public void OnHit(int damage)
     {
-        print($"{damage}의 피해를 입음");
         if (coll.enabled == false) return;
+        print($"{damage}의 피해를 입음");
         coll.enabled = false;
         StartCoroutine(TimeScaler());
         CamManager.instance.StartShake(7, 0.08f);

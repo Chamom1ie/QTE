@@ -9,7 +9,7 @@ public class Boss : MonoBehaviour
     Player player;
     int hp = 200;
 
-    float shotgunCount = 6;
+    float shotgunCount = 10;
 
     public delegate void ShotArr();
     public ShotArr[] Funcs = new ShotArr[2];
@@ -24,7 +24,7 @@ public class Boss : MonoBehaviour
 
     public async void BurstEnemy()
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 5; i++)
         {
             Vector2 dir = player.transform.position - transform.position;
             GameObject bullet = PoolManager.Get(bulletPrf, transform.position, Quaternion.identity);
@@ -52,8 +52,12 @@ public class Boss : MonoBehaviour
         if (collision.CompareTag("PlayerBullet"))
         {
             hp -= collision.GetComponent<PlayerBullet>().damage;
-            print("hit");
+            print($"Boss HP : {hp}");
             PoolManager.Release(collision.gameObject);
+        }
+        else if (collision.CompareTag("Player"))
+        {
+            collision.GetComponent<Player>().OnHit(2);
         }
     }
 }

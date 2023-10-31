@@ -92,6 +92,7 @@ public class BossLaserPattern : MonoBehaviour
     void LaserActiveFalse()
     {
         laser.SetActive(false);
+        Time.timeScale = 1;
     }
 
 }

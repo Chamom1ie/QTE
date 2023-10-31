@@ -35,8 +35,8 @@ public class PatternManager : MonoBehaviour
     [SerializeField] List<GameObject> linearBullet = new();
     [SerializeField] GameObject linearBulletPrf; 
     #endregion
-    WaitForSeconds cooldown = new(5);
-    float patternDelay = 3;
+    int QTECount= 0;
+    WaitForSeconds cooldown = new(3);
     private void Awake()
     {
         boss = FindObjectOfType<Boss>().gameObject;
@@ -64,30 +64,38 @@ public class PatternManager : MonoBehaviour
 
     IEnumerator Timer()
     {
-        while (player.gameObject.activeSelf == true) // 들어옴
+        ++QTECount;
+
+        //randPattern 개의 패턴 실행
+        int randPattern = Random.Range(2, patterns.Length);
+        for (int i = 0; i < randPattern; i++) 
         {
-            // 패턴 몇 개 할까요?
-            int randPattern = Random.Range(2, patterns.Length);
-            for (int i = 0; i < randPattern; i++) 
-            {
-                patterns = new IEnumerator[] { BezierPattern(), DashPattern(), CirclePattern(), CrossPattern() };
-                print("Pattern Start");
-                int random = Random.Range(0, 3); //뭐할까요
-                StartCoroutine(patterns[random]);
-                yield return new WaitForSeconds(patternDelay);
-            }
-            yield return new WaitForSeconds(0.4f);
-            int randLaser = Random.Range(0, 4);
-            BossController.GetComponent<BossLaserPattern>().sequences[randLaser]();
-            yield return cooldown;
-            
+            patterns = new IEnumerator[] { BezierPattern(), DashPattern(), CirclePattern(), CrossPattern() };
+            int random = Random.Range(0, 3);
+            yield return StartCoroutine(patterns[random]);
+        }
+        yield return new WaitForSeconds(0.4f);
+
+        int randLaser = Random.Range(0, 4);
+        BossController.GetComponent<BossLaserPattern>().sequences[randLaser]();
+
+        yield return new WaitForSeconds(0.5f);
+        print(QTECount);
+        if (QTECount >= 3 && Random.Range(0, 5) >= 0)
+        {
+            QTEManager.instance.ActionMapToQTE();
+            QTECount = 0;
+        }
+        yield return cooldown;
+        if (player.gameObject.activeSelf)
+        {
+            StartCoroutine(Timer());
         }
     }
 
     IEnumerator BezierPattern()
     {
-        patternDelay = 1.2f;
-        float duration = 0.4f;
+        float duration = 0.2f;
         float time;
         float randSign = (Random.Range(0, 2) == 0) ? 1 : -1;
 
@@ -113,7 +121,7 @@ public class PatternManager : MonoBehaviour
             _p[i].position = oldPos[i];
         }
         Targetting();
-        StopCoroutine(patterns[0]);
+        yield return new WaitForSeconds(1.2f);
     }
     void Targetting()
     {
@@ -132,7 +140,6 @@ public class PatternManager : MonoBehaviour
     IEnumerator DashPattern()
     {
         int rand = Random.Range(2, 5);
-        patternDelay = 2 * rand;
 
         for (int i = 0; i < rand; i++)
         {
@@ -150,7 +157,7 @@ public class PatternManager : MonoBehaviour
 
             yield return new WaitForSeconds(1.35f);
         }
-        yield return new WaitForSeconds(0.35f);
+        yield return new WaitForSeconds(2.5f);
     }
 
     IEnumerator CrossPattern()
@@ -161,8 +168,7 @@ public class PatternManager : MonoBehaviour
     IEnumerator CirclePattern()
     {
         linearBullet.Clear();
-        patternDelay = 1.75f;
-        float duration = 0.4f;
+        float duration = 0.2f;
         float time;
         Vector2 firstPlayerPos = player.transform.position;
         for (time = 0; time < 1; time += Time.fixedDeltaTime / duration)
@@ -178,7 +184,7 @@ public class PatternManager : MonoBehaviour
         {
             obj?.GetComponent<LinearBullet>().SetDir(player.transform.position - obj.transform.position, Random.Range(0, 4));
         }
-        yield return new WaitForSeconds(0.75f);
+        yield return new WaitForSeconds(2.75f);
     } 
 
     Vector2 RandomPoint()
