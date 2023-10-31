@@ -6,6 +6,7 @@ using UnityEngine.Rendering;
 using static Unity.Burst.Intrinsics.X86.Avx;
 using UnityEngine.Rendering.Universal;
 using Unity.VisualScripting;
+using System;
 
 public class QTEManager : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class QTEManager : MonoBehaviour
     InputActionMap playerMap;
     InputActionMap QTEMap;
     [SerializeField] private Volume volume;
+
+    public Action<int> LaserAction;
 
     Bloom bloom;
     private void Awake()
@@ -51,7 +54,7 @@ public class QTEManager : MonoBehaviour
         float scale = 0.1f;
         float timetime = 0;
         player.GetComponent<PlayerMovement>().enabled = false;
-        bloom.intensity.value = 50;
+        SetLights(50, 600);
         while (count > 0)
         {
             if (Keyboard.current.spaceKey.wasPressedThisFrame)
@@ -70,9 +73,14 @@ public class QTEManager : MonoBehaviour
         }
         player.GetComponent<PlayerMovement>().enabled = true;
         ActionMapToPlayer();
-        bloom.intensity.value = 2;
+        SetLights(2, 30);
         //yield return new WaitForSeconds(0.2f);
         Time.timeScale = 1;
+    }
+    void SetLights(int bloomValue, int laserThickness)
+    {
+        bloom.intensity.value = bloomValue;
+        LaserAction?.Invoke(laserThickness);
     }
 }
     
