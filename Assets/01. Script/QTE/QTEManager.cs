@@ -41,12 +41,12 @@ public class QTEManager : MonoBehaviour
     public void ActionMapToPlayer()
     {
         Debug.Log("PlayerActionMap Enabled");
+        StartCoroutine(QTESucsess());
         playerMap.Enable();
         QTEMap.Disable();
 
         
         _inputReader.GetControl().Player.SetCallbacks(_inputReader);
-        StartCoroutine(ActionMapChanged());
     }
 
     public void ActionMapToQTE()
@@ -56,7 +56,6 @@ public class QTEManager : MonoBehaviour
 
         _inputReader.GetControl().inQTE.SetCallbacks(_inputReader);
         Debug.Log("QTEActionMap Enabled");
-        StartCoroutine(ActionMapChanged());
 
         StartCoroutine(QTEPattern());
     }
@@ -102,7 +101,7 @@ public class QTEManager : MonoBehaviour
         LaserAction?.Invoke(laserThickness);
     }
 
-    IEnumerator ActionMapChanged()
+    IEnumerator QTESucsess()
     {
         player.tag = "Untagged";
         _sr.color = Color.white;

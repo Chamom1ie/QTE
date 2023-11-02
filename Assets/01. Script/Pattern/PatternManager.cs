@@ -113,7 +113,7 @@ public class PatternManager : MonoBehaviour
 
             GameObject obj = PoolManager.Get(enemyBullet, firstPos + (_target.position * randSign), Quaternion.identity);
 
-            yield return null;
+            yield return new WaitForSeconds(0.02f);
 
         }
         for (int i = 0; i < _p.Length; i++)
