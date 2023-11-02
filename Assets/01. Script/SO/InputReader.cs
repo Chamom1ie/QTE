@@ -11,11 +11,11 @@ public class InputReader : ScriptableObject, IPlayerActions, IInQTEActions
     public event Action<Vector2> MovementEvent;
     public event Action AttackEvent;
     public event Action QTEEvent;
-    public event Action DashEvent;
-
-    //public event Action ActionMapControl;
+    public event Action DashEvent;  
+    public event Action SkillEvent;
 
     private Control _control;
+
     public Control GetControl()
     {
         return _control;
@@ -42,6 +42,11 @@ public class InputReader : ScriptableObject, IPlayerActions, IInQTEActions
         if(context.started) AttackEvent?.Invoke();
     }
 
+    public void OnBigboy(InputAction.CallbackContext context)
+    {
+        if (context.started) SkillEvent?.Invoke();
+    }
+
     public void OnDash(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -57,4 +62,5 @@ public class InputReader : ScriptableObject, IPlayerActions, IInQTEActions
             QTEEvent?.Invoke();
         }
     }
+
 }

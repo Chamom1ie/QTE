@@ -53,6 +53,15 @@ public partial class @Control: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Bigboy"",
+                    ""type"": ""Button"",
+                    ""id"": ""f66a06c0-250f-4668-9f6b-2c2c34323cc8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -187,6 +196,17 @@ public partial class @Control: IInputActionCollection2, IDisposable
                     ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4f83b6dc-827d-4da7-846c-72c0beb75a13"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Bigboy"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -243,6 +263,7 @@ public partial class @Control: IInputActionCollection2, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
+        m_Player_Bigboy = m_Player.FindAction("Bigboy", throwIfNotFound: true);
         // inQTE
         m_inQTE = asset.FindActionMap("inQTE", throwIfNotFound: true);
         m_inQTE_SpaceQTE = m_inQTE.FindAction("SpaceQTE", throwIfNotFound: true);
@@ -310,6 +331,7 @@ public partial class @Control: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_Dash;
+    private readonly InputAction m_Player_Bigboy;
     public struct PlayerActions
     {
         private @Control m_Wrapper;
@@ -317,6 +339,7 @@ public partial class @Control: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
+        public InputAction @Bigboy => m_Wrapper.m_Player_Bigboy;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -335,6 +358,9 @@ public partial class @Control: IInputActionCollection2, IDisposable
             @Dash.started += instance.OnDash;
             @Dash.performed += instance.OnDash;
             @Dash.canceled += instance.OnDash;
+            @Bigboy.started += instance.OnBigboy;
+            @Bigboy.performed += instance.OnBigboy;
+            @Bigboy.canceled += instance.OnBigboy;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -348,6 +374,9 @@ public partial class @Control: IInputActionCollection2, IDisposable
             @Dash.started -= instance.OnDash;
             @Dash.performed -= instance.OnDash;
             @Dash.canceled -= instance.OnDash;
+            @Bigboy.started -= instance.OnBigboy;
+            @Bigboy.performed -= instance.OnBigboy;
+            @Bigboy.canceled -= instance.OnBigboy;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -425,6 +454,7 @@ public partial class @Control: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
+        void OnBigboy(InputAction.CallbackContext context);
     }
     public interface IInQTEActions
     {

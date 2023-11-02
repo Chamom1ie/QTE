@@ -7,17 +7,25 @@ using static Unity.Burst.Intrinsics.X86.Avx;
 using UnityEngine.Rendering.Universal;
 using Unity.VisualScripting;
 using System;
+using Unity.Collections.LowLevel.Unsafe;
+using UnityEditor.ShaderGraph;
+using UnityEditor.U2D;
+using UnityEditor.Timeline.Actions;
+using UnityEngine.Timeline;
 
 public class QTEManager : MonoBehaviour
 {
     public static QTEManager instance;
     [SerializeField] private InputReader _inputReader;
-    [SerializeField] GameObject player;
-    InputActionMap playerMap;
-    InputActionMap QTEMap;
+    [SerializeField] private GameObject player;
     [SerializeField] private Volume volume;
 
+    InputActionMap playerMap;
+    InputActionMap QTEMap;
+
     public Action<int> LaserAction;
+    BoxCollider2D _coll;
+    SpriteRenderer _sr;
 
     Bloom bloom;
     private void Awake()
@@ -27,14 +35,18 @@ public class QTEManager : MonoBehaviour
         volume = FindObjectOfType<Volume>();
         if (instance == null) instance = this;
         volume.profile.TryGet<Bloom>(out bloom);
+        _coll = player.GetComponent<BoxCollider2D>();
+        _sr = player.GetComponent<SpriteRenderer>();
     }
     public void ActionMapToPlayer()
     {
+        Debug.Log("PlayerActionMap Enabled");
         playerMap.Enable();
         QTEMap.Disable();
 
+        
         _inputReader.GetControl().Player.SetCallbacks(_inputReader);
-        Debug.Log("PlayerActionMap Enabled");
+        StartCoroutine(ActionMapChanged());
     }
 
     public void ActionMapToQTE()
@@ -44,6 +56,7 @@ public class QTEManager : MonoBehaviour
 
         _inputReader.GetControl().inQTE.SetCallbacks(_inputReader);
         Debug.Log("QTEActionMap Enabled");
+        StartCoroutine(ActionMapChanged());
 
         StartCoroutine(QTEPattern());
     }
@@ -62,7 +75,13 @@ public class QTEManager : MonoBehaviour
                 --count;
                 print($"³²Àº È½¼ö : {count}");
             }
-            if(timetime < 1.7f)
+            if(timetime > 1.7f)
+            {
+                Time.timeScale = 1;
+                SetLights(2, 30);
+                yield return null;
+            }
+            else
             {
                 timetime += Time.deltaTime;
                 Mathf.Lerp(scale, 0.6f, timetime/1.7f);
@@ -81,6 +100,15 @@ public class QTEManager : MonoBehaviour
     {
         bloom.intensity.value = bloomValue;
         LaserAction?.Invoke(laserThickness);
+    }
+
+    IEnumerator ActionMapChanged()
+    {
+        player.tag = "Untagged";
+        _sr.color = Color.white;
+        yield return new WaitForSeconds(0.8f);
+        player.tag = "Player";
+        _sr.color = Color.cyan;
     }
 }
     

@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,6 +12,8 @@ public class PlayerMovement : MonoBehaviour
     Vector2 lastDir;
     private Rigidbody2D _rigidbody;
     SpriteRenderer sr;
+
+    Light2D _light;
 
     private bool isCooldown = false;
     private float dashCool = 3f;
@@ -22,9 +27,16 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _coll = GetComponent<BoxCollider2D>();
         sr = GetComponent<SpriteRenderer>();
+        _light = GetComponentInChildren<Light2D>();
 
+    }
+
+    private void OnEnable()
+    {
         _inputReader.MovementEvent += MovementHandle;
         _inputReader.DashEvent += DashHandle;
+
+        DashHandle();
     }
 
     private void OnDestroy()
@@ -62,20 +74,20 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator DashRoutine()
     {
-
         _inputReader.MovementEvent -= MovementHandle;
-        Color wasColor = sr.color;
         sr.color = Color.white;
          Vector2 lastVel = _rigidbody.velocity;
-        print("π´¿˚");
+        _light.intensity = _light.intensity * 3;
+        print("Î¨¥Ï†Å");
         _coll.enabled = false;
 
         _rigidbody.velocity = 1.7f * speed * lastDir;
         yield return dashTime;
-        sr.color = wasColor;
+        sr.color = Color.cyan;
         _rigidbody.velocity = lastVel;
 
         _coll.enabled = true;
+        _light.intensity = _light.intensity / 3;
         _inputReader.MovementEvent += MovementHandle;
     }
 }

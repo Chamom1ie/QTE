@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
         Tween fadeTween = sr.DOFade(0.2f, 0.15f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
         yield return new WaitForSeconds(invincibleTime);
         fadeTween.Kill();
-        sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1);
+        sr.color = Color.cyan;
         coll.enabled = true;
     }
 

@@ -22,7 +22,6 @@ public class Laser : MonoBehaviour
     }
     void SetLaserThick(int laserThickness)
     {
-        print(1);
         line.material.SetFloat("LaserThickness", laserThickness);
     }
 }

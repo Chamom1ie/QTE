@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Boss : MonoBehaviour
 {
@@ -52,6 +54,7 @@ public class Boss : MonoBehaviour
         if (collision.CompareTag("PlayerBullet"))
         {
             hp -= collision.GetComponent<PlayerBullet>().damage;
+            CamManager.instance.StartShake(2, 0.38f);
             print($"Boss HP : {hp}");
             PoolManager.Release(collision.gameObject);
         }
