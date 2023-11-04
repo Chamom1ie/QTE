@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,15 @@ public class HealthBar : VisualElement
 {
     public int width { get; set; }
     public int height { get; set; }
+    public float value { get; set; }
+
+    public enum FillType
+    {
+        Horizontal,
+        Vertical
+    }
+
+    public FillType fillType;
 
     private VisualElement hbParent;
     private VisualElement hbBackground;
@@ -18,6 +28,7 @@ public class HealthBar : VisualElement
     {
         UxmlIntAttributeDescription m_width = new UxmlIntAttributeDescription() { name = "width", defaultValue = 300 };
         UxmlIntAttributeDescription m_height = new UxmlIntAttributeDescription() { name = "height", defaultValue = 50 };
+        UxmlFloatAttributeDescription m_value = new UxmlFloatAttributeDescription() { name = "value", defaultValue = 1 };
 
         public override IEnumerable<UxmlChildElementDescription> uxmlChildElementsDescription
         {

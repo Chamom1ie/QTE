@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.UI;
 using System;
 
 public class Player : MonoBehaviour
@@ -19,15 +17,24 @@ public class Player : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         coll = GetComponent<BoxCollider2D>();
     }
+
+    private void Start()
+    {
+        UIManager.instance.playerMaxHp = hp;
+    }
+
     public void OnHit(int damage)
     {
         if (coll.enabled == false) return;
-        print($"{damage}의 피해를 입음");
         coll.enabled = false;
+
+        hp -= damage;
+        UIManager.instance.PlayerHPChange(hp);
+
         StartCoroutine(TimeScaler());
         CamManager.instance.StartShake(7, 0.08f);
         StartCoroutine(HitRoutine());
-        hp -= damage;
+
         if (hp <= 0)
         {
             PlayerDead?.Invoke();

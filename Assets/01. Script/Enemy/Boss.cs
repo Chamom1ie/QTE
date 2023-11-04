@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class Boss : MonoBehaviour
 {
@@ -22,6 +18,11 @@ public class Boss : MonoBehaviour
         Funcs[0] = BurstEnemy;
         Funcs[1] = Shotgun;
         //Funcs[2] = SideToMid;
+    }
+
+    private void Start()
+    {
+        UIManager.instance.bossMaxHP = hp;
     }
 
     public async void BurstEnemy()
@@ -54,14 +55,11 @@ public class Boss : MonoBehaviour
         if (collision.CompareTag("PlayerBullet"))
         {
             hp -= collision.GetComponent<PlayerBullet>().damage;
+            UIManager.instance.BossHPChange(hp);
             CamManager.instance.StartShake(2, 0.38f);
-            if (hp % 20 == 0)
+            if (hp <= 0)
             {
-                print($"Boss HP : {hp}");
-                if (hp <= 0)
-                {
-                    gameObject.SetActive(false);
-                }
+                gameObject.SetActive(false);
             }
             PoolManager.Release(collision.gameObject);
         }
