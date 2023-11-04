@@ -58,7 +58,7 @@ public class QTEManager : MonoBehaviour
         float scale = 0.1f;
         float timetime = 0;
         player.GetComponent<PlayerMovement>().enabled = false;
-        SetLights(50, 600);
+        SetLights(10, 300);
         while (count > 0)
         {
             if (Keyboard.current.spaceKey.wasPressedThisFrame)
@@ -66,7 +66,7 @@ public class QTEManager : MonoBehaviour
                 --count;
                 print($"³²Àº È½¼ö : {count}");
             }
-            if(timetime > 1.7f)
+            if(timetime > 1.2f)
             {
                 Time.timeScale = 1;
                 SetLights(2, 30);
@@ -75,7 +75,7 @@ public class QTEManager : MonoBehaviour
             else
             {
                 timetime += Time.deltaTime;
-                Mathf.Lerp(scale, 0.6f, timetime/1.7f);
+                Mathf.Lerp(scale, 0.7f, timetime/1.2f);
                 Time.timeScale = scale;
                 yield return null;
             }
