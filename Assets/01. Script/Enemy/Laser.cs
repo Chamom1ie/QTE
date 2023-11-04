@@ -20,8 +20,8 @@ public class Laser : MonoBehaviour
             collision.GetComponent<Player>().OnHit(3);
         }
     }
-    void SetLaserThick(int laserThickness)
+    void SetLaserThick(float laserThickness)
     {
-        line.material.SetFloat("laserThickness", laserThickness);
+        line.material.SetFloat("_LaserThickness", laserThickness);
     }
 }

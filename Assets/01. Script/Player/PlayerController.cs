@@ -18,10 +18,10 @@ public class PlayerController : MonoBehaviour
     private float lastAttackTime = 0f;
     
     private bool isBigCooldown = false;
-    private float bigCool = 0.4f;
+    private float bigCool = 8.1f;
     private float lastBigTime = 0f;
 
-    public Action ShootAddforce;
+    public Action<Vector2> ShootAddforce;
 
     private void Awake()
     {
@@ -69,13 +69,14 @@ public class PlayerController : MonoBehaviour
     {
         if (!isBigCooldown)
         {
+            print("Å«°Å½ô");
             dir = (cam.ScreenToWorldPoint(Input.mousePosition) - transform.position);
             GameObject bullet = Instantiate(playerBigboyPrf, transform.position, Quaternion.identity);
             bullet.GetComponent<PlayerBullet>().SetDir(dir);
-            ShootAddforce?.Invoke();
 
-            isCooldown = true;
-            lastAttackTime = Time.time;
+            isBigCooldown = true;
+            ShootAddforce?.Invoke(dir.normalized);
+            lastBigTime = Time.time;
         }
     }
 

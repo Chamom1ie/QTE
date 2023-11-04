@@ -87,7 +87,7 @@ public class PatternManager : MonoBehaviour
             QTECount = 0;
         }
         yield return cooldown;
-        if (player.gameObject.activeSelf)
+        if (player.gameObject.activeSelf && boss.activeSelf)
         {
             StartCoroutine(Timer());
         }
@@ -169,12 +169,11 @@ public class PatternManager : MonoBehaviour
     {
         linearBullet.Clear();
         float duration = 0.2f;
-        float time;
         Vector2 firstPlayerPos = player.transform.position;
-        for (time = 0; time < 1; time += Time.fixedDeltaTime / duration)
+        for (float time = 0; time < 1; time += Time.fixedDeltaTime / duration)
         {
-            Vector2 randPos = RandomPoint();
-            GameObject obj = Instantiate(linearBulletPrf, randPos + firstPlayerPos, Quaternion.identity);
+            Vector2 randPos = RandomPoint(firstPlayerPos);
+            GameObject obj = Instantiate(linearBulletPrf, randPos, Quaternion.identity);
             linearBullet.Add(obj);
 
             yield return null;
@@ -187,13 +186,13 @@ public class PatternManager : MonoBehaviour
         yield return new WaitForSeconds(2.75f);
     } 
 
-    Vector2 RandomPoint()
+    Vector2 RandomPoint(Vector2 playerPos)
     {
         float randAngle = Random.Range(0f, 2f * Mathf.PI);
 
         float x = radius * Mathf.Cos(randAngle);
         float y = radius * Mathf.Sin(randAngle);
 
-        return new Vector2(x, y);
+        return new Vector2(x, y) + playerPos;
     }
 }

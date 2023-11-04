@@ -55,7 +55,14 @@ public class Boss : MonoBehaviour
         {
             hp -= collision.GetComponent<PlayerBullet>().damage;
             CamManager.instance.StartShake(2, 0.38f);
-            print($"Boss HP : {hp}");
+            if (hp % 20 == 0)
+            {
+                print($"Boss HP : {hp}");
+                if (hp <= 0)
+                {
+                    gameObject.SetActive(false);
+                }
+            }
             PoolManager.Release(collision.gameObject);
         }
         else if (collision.CompareTag("Player"))

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -11,6 +12,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private InputReader _inputReader;
     Vector2 lastDir;
     private Rigidbody2D _rigidbody;
+    private PlayerController controller;
+
     SpriteRenderer sr;
 
     Light2D _light;
@@ -28,21 +31,17 @@ public class PlayerMovement : MonoBehaviour
         _coll = GetComponent<BoxCollider2D>();
         sr = GetComponent<SpriteRenderer>();
         _light = GetComponentInChildren<Light2D>();
-
+        controller = GetComponent<PlayerController>();
     }
 
     private void OnEnable()
     {
-        _inputReader.MovementEvent += MovementHandle;
-        _inputReader.DashEvent += DashHandle;
-
-        DashHandle();
+        ActionSub();
     }
 
     private void OnDestroy()
     {
-        _inputReader.MovementEvent -= MovementHandle;
-        _inputReader.DashEvent -= DashHandle;
+        ActionUnsub();
     }
     private void Update()
     {
@@ -89,5 +88,35 @@ public class PlayerMovement : MonoBehaviour
         _coll.enabled = true;
         _light.intensity = _light.intensity / 3;
         _inputReader.MovementEvent += MovementHandle;
+    }
+
+    void AddForceBack(Vector2 dir)
+    {
+        print("AddForceBack");
+        StartCoroutine(AddForceRoutine(dir));
+    }
+
+    IEnumerator AddForceRoutine(Vector2 dir)
+    {
+        ActionUnsub();
+        Vector2 velo = _rigidbody.velocity;
+        _rigidbody.AddForce(-dir * 6, ForceMode2D.Impulse);
+        yield return new WaitForSeconds(0.175f);
+        ActionSub();
+        _rigidbody.velocity = velo;
+    }
+
+    void ActionSub()
+    {
+        _inputReader.MovementEvent += MovementHandle;
+        _inputReader.DashEvent += DashHandle;
+        controller.ShootAddforce += AddForceBack;
+    }
+
+    void ActionUnsub()
+    {
+        _inputReader.MovementEvent -= MovementHandle;
+        _inputReader.DashEvent -= DashHandle;
+        controller.ShootAddforce -= AddForceBack;
     }
 }

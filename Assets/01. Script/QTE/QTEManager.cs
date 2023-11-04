@@ -1,17 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
-using static Unity.Burst.Intrinsics.X86.Avx;
 using UnityEngine.Rendering.Universal;
-using Unity.VisualScripting;
 using System;
-using Unity.Collections.LowLevel.Unsafe;
-using UnityEditor.ShaderGraph;
-using UnityEditor.U2D;
-using UnityEditor.Timeline.Actions;
-using UnityEngine.Timeline;
 
 public class QTEManager : MonoBehaviour
 {
@@ -23,7 +15,7 @@ public class QTEManager : MonoBehaviour
     InputActionMap playerMap;
     InputActionMap QTEMap;
 
-    public Action<int> LaserAction;
+    public Action<float> LaserAction;
     BoxCollider2D _coll;
     SpriteRenderer _sr;
 
@@ -95,7 +87,7 @@ public class QTEManager : MonoBehaviour
         //yield return new WaitForSeconds(0.2f);
         Time.timeScale = 1;
     }
-    void SetLights(int bloomValue, int laserThickness)
+    void SetLights(int bloomValue, float laserThickness)
     {
         bloom.intensity.value = bloomValue;
         LaserAction?.Invoke(laserThickness);

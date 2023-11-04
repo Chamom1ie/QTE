@@ -19,7 +19,6 @@ public class BezierBullet : Bullets
     {
         dir = moveDir;
         gameObject.tag = "Go";
-
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

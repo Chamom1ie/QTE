@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/LobbyUI.uss?fileID=7433441132597879392&amp;guid=d96aa6425e6ffd447a111e99a520252d&amp;type=3#LobbyUI" />
+    <ui:VisualElement name="container" style="flex-grow: 1; justify-content: flex-end; flex-direction: column-reverse;">
+        <ui:VisualElement style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Settings/QTE_LOGO.png?fileID=21300000&amp;guid=6693130a4274a58419284ec20a444661&amp;type=3#QTE_LOGO&apos;); flex-direction: column-reverse;">
+            <ui:VisualElement name="btn-row" style="flex-basis: 20%; align-items: center; justify-content: space-around; background-color: rgba(0, 0, 0, 0); flex-direction: row; padding-right: 15%; padding-left: 15%;">
+                <ui:VisualElement name="start-btn" class="button cyan">
+                    <ui:Label tabindex="-1" text="게임 시작" parse-escape-sequences="true" display-tooltip-when-elided="true" name="start-lbl" class="labels" />
+                </ui:VisualElement>
+                <ui:VisualElement name="setting-btn" class="button white">
+                    <ui:Label tabindex="-1" text="설정" parse-escape-sequences="true" display-tooltip-when-elided="true" name="setting-lbl" class="labels" />
+                </ui:VisualElement>
+                <ui:VisualElement name="quit-btn" class="button red">
+                    <ui:Label tabindex="-1" text="게임 종료" parse-escape-sequences="true" display-tooltip-when-elided="true" name="quit-lbl" class="labels" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
