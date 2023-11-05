@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class BezierBullet : Bullets
 {
+    [SerializeField] private GameObject killFX; 
     float speed = 7;
     private void Awake()
     {
@@ -34,6 +36,7 @@ public class BezierBullet : Bullets
             _rigid2d.velocity = Vector2.zero;
             PoolManager.Release(gameObject);
             collision.GetComponent<Player>().OnHit(damage);
+            DestroyBullet(killFX);
         }
         if (collision.gameObject.CompareTag("BulletBorder"))
         {
@@ -43,4 +46,6 @@ public class BezierBullet : Bullets
             PoolManager.Release(gameObject);
         }
     }
+
+    
 }

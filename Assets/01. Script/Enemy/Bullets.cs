@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class Bullets : MonoBehaviour
@@ -21,7 +22,6 @@ public class Bullets : MonoBehaviour
             dir = Vector3.zero;
             _rigid2d.velocity = Vector2.zero;
             PoolManager.Release(gameObject);
-
         }
         if (collision.CompareTag("BulletBorder"))
         {
@@ -29,5 +29,10 @@ public class Bullets : MonoBehaviour
             _rigid2d.velocity = Vector2.zero;
             PoolManager.Release(gameObject);
         }
+    }
+    
+    public virtual void DestroyBullet(GameObject fx)
+    {
+        PoolManager.Get(fx);
     }
 }

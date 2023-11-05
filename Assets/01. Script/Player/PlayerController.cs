@@ -22,13 +22,20 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        Control control = new Control();
-        control.Player.Enable();
-
         cam = Camera.main;
+    }
 
+    private void OnEnable()
+    {
+        print(1);
         _inputReader.AttackEvent += Attack;
         _inputReader.SkillEvent += BigBoy;
+    }
+
+    private void OnDisable()
+    {
+        _inputReader.AttackEvent -= Attack;
+        _inputReader.SkillEvent -= BigBoy;
     }
 
     private void Update()
@@ -75,7 +82,5 @@ public class PlayerController : MonoBehaviour
             ShootAddforce?.Invoke(dir.normalized);
             lastBigTime = Time.time;
         }
-    }
-
-    
+    }        
 }
