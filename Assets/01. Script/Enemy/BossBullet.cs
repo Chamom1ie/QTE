@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class BossBullet : Bullets
 {
-    
-    float speed = 7;
+    readonly float speed = 7;
 
     private void Awake()
     {
@@ -17,7 +16,7 @@ public class BossBullet : Bullets
         _rigid2d.velocity = dir.normalized * speed;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) 
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         CollisionAny(collision);
     }

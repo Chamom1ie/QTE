@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  killFX: {fileID: 3223214362878034842, guid: 230c7903050b18645b09e35ae0ac5856, type: 3}
 --- !u!50 &6848273679019713591
 Rigidbody2D:
   serializedVersion: 4

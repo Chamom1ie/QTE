@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class LinearBullet : Bullets
 {
-    float speed = 8.5f;
+    readonly float speed = 8.5f;
     private void Awake()
     {
         _rigid2d = GetComponent<Rigidbody2D>();

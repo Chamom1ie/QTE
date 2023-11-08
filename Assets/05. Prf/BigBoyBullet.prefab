@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  killFX: {fileID: 3223214362878034842, guid: 680d4ddbf45a757439d546bea81f4290, type: 3}
 --- !u!58 &7076601739416796552
 CircleCollider2D:
   m_ObjectHideFlags: 0

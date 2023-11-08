@@ -4,13 +4,18 @@ using UnityEngine;
 public class Boss : MonoBehaviour
 {
     [SerializeField] GameObject bulletPrf;
+    [SerializeField] GameObject blueFXPrf;
     Player player;
     int hp = 200;
 
-    float shotgunCount = 10;
+    public int Hp { get => hp; set => hp = value; }
+
+    readonly int damage = 2;
+    readonly float shotgunCount = 10;
 
     public delegate void ShotArr();
     public ShotArr[] Funcs = new ShotArr[2];
+
 
     void Awake()
     {
@@ -22,7 +27,7 @@ public class Boss : MonoBehaviour
 
     private void Start()
     {
-        UIManager.instance.bossMaxHP = hp;
+        GameManager.instance.bossMaxHP = Hp;
     }
 
     public async void BurstEnemy()
@@ -49,23 +54,28 @@ public class Boss : MonoBehaviour
         }
     }
 
+    private void HitFX()
+    {
+        PoolManager.Get(blueFXPrf, transform.position, Quaternion.identity);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
-    { 
+    {
 
         if (collision.CompareTag("PlayerBullet"))
         {
-            hp -= collision.GetComponent<PlayerBullet>().damage;
-            UIManager.instance.BossHPChange(hp);
+            GameManager.instance.BossHPChange(hp);
+            HitFX();
             CamManager.instance.StartShake(2, 0.38f);
-            if (hp <= 0)
+            if (Hp <= 0)
             {
                 gameObject.SetActive(false);
             }
-            PoolManager.Release(collision.gameObject);
         }
         else if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<Player>().OnHit(2);
+            GameManager.instance.DecreasePlayerHP(damage);
+            HitFX();
         }
     }
 }

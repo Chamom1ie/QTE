@@ -2,16 +2,23 @@ using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using System;
+using UnityEditor.ShaderKeywordFilter;
 
 public class Player : MonoBehaviour
 {
     public Action PlayerDead;
 
+    [SerializeField] GameObject redFXPrf;  
+
     int hp = 10;
-    float invincibleTime = 0.5f;
+
+    readonly float invincibleTime = 0.5f;
 
     private SpriteRenderer sr;
     private BoxCollider2D coll;
+
+    public int Hp { get => hp; set => hp = value; }
+
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -20,26 +27,30 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        UIManager.instance.playerMaxHp = hp;
+        GameManager.instance.playerMaxHp = Hp;
     }
 
-    public void OnHit(int damage)
+    public void OnHit()
     {
         if (coll.enabled == false) return;
         coll.enabled = false;
-
-        hp -= damage;
-        UIManager.instance.PlayerHPChange(hp);
+        HitFX();
+        GameManager.instance.PlayerHPChange(Hp);
+        CamManager.instance.StartShake(7, 0.08f);
 
         StartCoroutine(TimeScaler());
-        CamManager.instance.StartShake(7, 0.08f);
         StartCoroutine(HitRoutine());
 
-        if (hp <= 0)
+        if (Hp <= 0)
         {
             PlayerDead?.Invoke();
             gameObject.SetActive(false);
         }
+    }
+
+    private void HitFX()
+    {
+        PoolManager.Get(redFXPrf, transform.position, Quaternion.identity);
     }
 
     IEnumerator HitRoutine()

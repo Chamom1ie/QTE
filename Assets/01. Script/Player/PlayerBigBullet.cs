@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBullet : Bullets
+public class PlayerBigBullet : Bullets
 {
     readonly float speed = 6;
+    int damage = 5;
     [SerializeField] GameObject killFX;
     private void Awake()
     {
@@ -26,7 +27,7 @@ public class PlayerBullet : Bullets
         }
         if (collision.CompareTag("Boss"))
         {
-            GameManager.instance.DecreaseBossHP(Damage);
+            GameManager.instance.DecreaseBossHP(damage);
             PoolManager.Release(gameObject);
         }
     }

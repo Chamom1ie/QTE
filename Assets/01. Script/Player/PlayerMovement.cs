@@ -73,7 +73,6 @@ public class PlayerMovement : MonoBehaviour
         sr.color = Color.white;
          Vector2 lastVel = _rigidbody.velocity;
         _light.intensity = _light.intensity * 3;
-        print("무적");
         _coll.enabled = false;
 
         _rigidbody.velocity = 1.7f * speed * lastDir;
@@ -88,7 +87,6 @@ public class PlayerMovement : MonoBehaviour
 
     void AddForceBack(Vector2 dir)
     {
-        print("AddForceBack");
         StartCoroutine(AddForceRoutine(dir));
     }
 
@@ -96,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
     {
         ActionUnsub();
         Vector2 velo = _rigidbody.velocity;
-        _rigidbody.AddForce(-dir * 6, ForceMode2D.Impulse);
+        _rigidbody.AddForce(-dir.normalized * 10, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.175f);
         ActionSub();
         _rigidbody.velocity = velo;

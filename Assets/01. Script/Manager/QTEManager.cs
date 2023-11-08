@@ -16,7 +16,6 @@ public class QTEManager : MonoBehaviour
     InputActionMap QTEMap;
 
     public Action<float> LaserAction;
-    BoxCollider2D _coll;
     SpriteRenderer _sr;
 
     Bloom bloom;
@@ -27,7 +26,6 @@ public class QTEManager : MonoBehaviour
         volume = FindObjectOfType<Volume>();
         if (instance == null) instance = this;
         volume.profile.TryGet<Bloom>(out bloom);
-        _coll = player.GetComponent<BoxCollider2D>();
         _sr = player.GetComponent<SpriteRenderer>();
     }
     public void ActionMapToPlayer()
@@ -66,7 +64,7 @@ public class QTEManager : MonoBehaviour
                 --count;
                 print($"³²Àº È½¼ö : {count}");
             }
-            if(timetime > 1.2f)
+            if(timetime > 1.1f)
             {
                 Time.timeScale = 1;
                 SetLights(2, 30);
@@ -75,7 +73,7 @@ public class QTEManager : MonoBehaviour
             else
             {
                 timetime += Time.deltaTime;
-                Mathf.Lerp(scale, 0.7f, timetime/1.2f);
+                Mathf.Lerp(scale, 0.8f, timetime/1.1f);
                 Time.timeScale = scale;
                 yield return null;
             }

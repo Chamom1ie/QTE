@@ -80,7 +80,6 @@ public class PatternManager : MonoBehaviour
         BossController.GetComponent<BossLaserPattern>().sequences[randLaser]();
 
         yield return new WaitForSeconds(0.5f);
-        print(QTECount);
         if (QTECount >= 3 && Random.Range(0, 5) >= 0)
         {
             QTEManager.instance.ActionMapToQTE();

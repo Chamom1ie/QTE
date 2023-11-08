@@ -7,7 +7,9 @@ public class Bullets : MonoBehaviour
 {
     internal Vector3 dir;
     internal Rigidbody2D _rigid2d;
-    public int damage = 1;
+    int damage = 1;
+
+    public int Damage { get => damage; set => damage = value; }
 
     public virtual void SetDir(Vector3 moveDir)
     {
@@ -18,7 +20,7 @@ public class Bullets : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<Player>().OnHit(damage);
+            GameManager.instance.DecreasePlayerHP(Damage);
             dir = Vector3.zero;
             _rigid2d.velocity = Vector2.zero;
             PoolManager.Release(gameObject);
@@ -30,9 +32,6 @@ public class Bullets : MonoBehaviour
             PoolManager.Release(gameObject);
         }
     }
+
     
-    public virtual void DestroyBullet(GameObject fx)
-    {
-        PoolManager.Get(fx);
-    }
 }
