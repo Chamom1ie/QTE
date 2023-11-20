@@ -29,7 +29,7 @@ public class BossLaserPattern : MonoBehaviour
             }));
         seq.AppendCallback(() => laser.SetActive(true));
         seq.AppendCallback(() => CamManager.instance.StartShake(7, 0.8f));
-        seq.Append(transform.DORotate(new Vector3(0, 0, 180 * -transform.localScale.x), 0.8f, RotateMode.WorldAxisAdd).SetEase(Ease.InCubic));
+        seq.Append(transform.DORotate(new Vector3(0, 0, 180 * -transform.localScale.x), 0.7f, RotateMode.WorldAxisAdd).SetEase(Ease.InCubic));
         seq.AppendInterval(0.15f);
         seq.AppendCallback(LaserActiveFalse);
     }
@@ -46,7 +46,7 @@ public class BossLaserPattern : MonoBehaviour
             }));
         seq.AppendCallback(() => laser.SetActive(true));
         seq.AppendCallback(() => CamManager.instance.StartShake(7, 0.8f));
-        seq.Append(transform.DORotate(new Vector3(0, 0, 180 * transform.localScale.x), 0.8f, RotateMode.WorldAxisAdd).SetEase(Ease.InCubic));
+        seq.Append(transform.DORotate(new Vector3(0, 0, 180 * transform.localScale.x), 0.7f, RotateMode.WorldAxisAdd).SetEase(Ease.InCubic));
         seq.AppendInterval(0.15f);
         seq.AppendCallback(LaserActiveFalse);
     }
@@ -64,7 +64,7 @@ public class BossLaserPattern : MonoBehaviour
             }));
         seq.AppendCallback(() => laser.SetActive(true));
         seq.AppendCallback(() => CamManager.instance.StartShake(7, 0.8f));
-        seq.Append(transform.DORotate(new Vector3(0, 0, 180 * -transform.localScale.x), 0.8f, RotateMode.WorldAxisAdd).SetEase(Ease.InCubic));
+        seq.Append(transform.DORotate(new Vector3(0, 0, 180 * -transform.localScale.x), 0.7f, RotateMode.WorldAxisAdd).SetEase(Ease.InCubic));
         seq.AppendInterval(0.15f);
         seq.AppendCallback(LaserActiveFalse);
     }
@@ -82,7 +82,7 @@ public class BossLaserPattern : MonoBehaviour
             }));
         seq.AppendCallback(() => laser.SetActive(true));
         seq.AppendCallback(() => CamManager.instance.StartShake(7, 0.8f));
-        seq.Append(transform.DORotate(new Vector3(0, 0, 180 * transform.localScale.x), 0.8f, RotateMode.WorldAxisAdd).SetEase(Ease.InCubic));
+        seq.Append(transform.DORotate(new Vector3(0, 0, 180 * transform.localScale.x), 0.7f, RotateMode.WorldAxisAdd).SetEase(Ease.InCubic));
         seq.AppendInterval(0.15f);
         seq.AppendCallback(LaserActiveFalse);
     }

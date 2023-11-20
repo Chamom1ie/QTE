@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour
         {
             dir = (cam.ScreenToWorldPoint(Input.mousePosition) - transform.position);
             GameObject bullet = PoolManager.Get(playerBulletPrf, transform.position, Quaternion.identity);
+            AudioManager.instance.PlaySFX("miniShot");
             bullet.GetComponent<PlayerBullet>().SetDir(dir);
 
             isCooldown = true;
@@ -74,6 +75,7 @@ public class PlayerController : MonoBehaviour
         {
             dir = (cam.ScreenToWorldPoint(Input.mousePosition) - transform.position);
             GameObject bullet = PoolManager.Get(playerBigboyPrf, transform.position, Quaternion.identity);
+            AudioManager.instance.PlaySFX("bigShot");
             bullet.GetComponent<PlayerBullet>().SetDir(dir);
 
             isBigCooldown = true;

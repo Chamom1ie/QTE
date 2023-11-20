@@ -111,6 +111,7 @@ public class PatternManager : MonoBehaviour
             _target.position = Vector3.Lerp(p4, p5, time);
 
             GameObject obj = PoolManager.Get(enemyBullet, firstPos + (_target.position * randSign), Quaternion.identity);
+            AudioManager.instance.PlaySFX("makeBullet");
 
             yield return new WaitForSeconds(0.02f);
 
@@ -131,6 +132,7 @@ public class PatternManager : MonoBehaviour
         {
             if (bullet.gameObject.tag == "StandBy")
             {
+                AudioManager.instance.PlaySFX("shootBullet");
                 bullet.SetDir((player.transform.position - bullet.transform.position).normalized);
             }
         }
@@ -145,7 +147,11 @@ public class PatternManager : MonoBehaviour
             Sequence seq = DOTween.Sequence();
 
             seq.Append(sr.DOColor(bossRed, 0.65f));
-            seq.AppendCallback(() => CamManager.instance.StartShake(5, 0.2f));
+            seq.AppendCallback(() =>
+            {
+                CamManager.instance.StartShake(5, 0.2f);
+                AudioManager.instance.PlaySFX("bossDash");
+            });
             seq.Append(BossController.DOMove(player.transform.position + new Vector3(Random.Range(-2, 3), Random.Range(-1, 2)), 0.6f));
             seq.AppendCallback(() =>
             {
@@ -173,6 +179,7 @@ public class PatternManager : MonoBehaviour
         {
             Vector2 randPos = RandomPoint(firstPlayerPos);
             GameObject obj = Instantiate(linearBulletPrf, randPos, Quaternion.identity);
+            AudioManager.instance.PlaySFX("makeBullet");
             linearBullet.Add(obj);
 
             yield return null;
@@ -180,7 +187,8 @@ public class PatternManager : MonoBehaviour
         CamManager.instance.StartShake(6, 0.1f);
         foreach (GameObject obj in linearBullet)
         {
-            obj?.GetComponent<LinearBullet>().SetDir(player.transform.position - obj.transform.position, Random.Range(0, 4));
+            obj.GetComponent<LinearBullet>().SetDir(player.transform.position - obj.transform.position, Random.Range(0, 4));
+            AudioManager.instance.PlaySFX("shootBullet");
         }
         yield return new WaitForSeconds(2.75f);
     } 

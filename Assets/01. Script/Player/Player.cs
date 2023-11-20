@@ -8,8 +8,6 @@ public class Player : MonoBehaviour
 {
     public Action PlayerDead;
 
-    [SerializeField] GameObject redFXPrf;  
-
     int hp = 10;
 
     readonly float invincibleTime = 0.5f;
@@ -34,7 +32,8 @@ public class Player : MonoBehaviour
     {
         if (coll.enabled == false) return;
         coll.enabled = false;
-        HitFX();
+        AudioManager.instance.PlaySFX("playerHit");
+        FXManager.instance.GetFX(transform.position, transform.position);
         GameManager.instance.PlayerHPChange(Hp);
         CamManager.instance.StartShake(7, 0.08f);
 
@@ -46,11 +45,6 @@ public class Player : MonoBehaviour
             PlayerDead?.Invoke();
             gameObject.SetActive(false);
         }
-    }
-
-    private void HitFX()
-    {
-        PoolManager.Get(redFXPrf, transform.position, Quaternion.identity);
     }
 
     IEnumerator HitRoutine()

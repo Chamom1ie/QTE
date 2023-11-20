@@ -12,6 +12,7 @@ public class Laser : MonoBehaviour
     {
         line = GetComponent<LineRenderer>();
         QTEManager.instance.LaserAction += SetLaserThick;
+        AudioManager.instance.PlaySFX("laserSound");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -33,6 +34,7 @@ public class Laser : MonoBehaviour
     void KillCollision(Collider2D coll)
     {
         Transform collTransform = coll.transform;
+        AudioManager.instance.PlaySFX("breakBullet");
         PoolManager.Release(collTransform.gameObject);
         PoolManager.Get(blueFXPrf, collTransform.position, Quaternion.identity);
     }

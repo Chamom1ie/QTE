@@ -1,17 +1,17 @@
 .button {
-    flex-basis: 25%;
     border-left-color: rgb(0, 0, 0);
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);
     border-bottom-color: rgb(0, 0, 0);
     background-color: rgb(255, 255, 255);
-    height: 40%;
     margin-top: 5%;
     margin-right: 5%;
     margin-bottom: 5%;
     margin-left: 5%;
     justify-content: center;
     transition-duration: 0.3s;
+    height: 40%;
+    width: 40%;
 }
 
 .labels {

@@ -52,9 +52,12 @@ public class QTEManager : MonoBehaviour
 
     IEnumerator QTEPattern()
     {
-        int count = 11;
+        int count = 10;
         float scale = 0.1f;
         float timetime = 0;
+        GameManager.instance.qteMaxCount = count;
+        GameManager.instance.ChangeSliderValue(10 - count);
+        GameManager.instance.spaceCounterObj.SetActive(true);
         player.GetComponent<PlayerMovement>().enabled = false;
         SetLights(10, 300);
         while (count > 0)
@@ -62,6 +65,8 @@ public class QTEManager : MonoBehaviour
             if (Keyboard.current.spaceKey.wasPressedThisFrame)
             {
                 --count;
+                AudioManager.instance.PlaySFX("click");
+                GameManager.instance.ChangeSliderValue(10 - count);
                 print($"³²Àº È½¼ö : {count}");
             }
             if(timetime > 1.1f)
@@ -69,6 +74,8 @@ public class QTEManager : MonoBehaviour
                 Time.timeScale = 1;
                 SetLights(2, 30);
                 yield return null;
+                ActionMapToPlayer();
+                player.GetComponent<PlayerMovement>().enabled = true;
             }
             else
             {
@@ -94,6 +101,7 @@ public class QTEManager : MonoBehaviour
     IEnumerator QTESucsess()
     {
         player.tag = "Untagged";
+        GameManager.instance.FadeQTECounter();
         _sr.color = Color.white;
         yield return new WaitForSeconds(0.8f);
         player.tag = "Player";

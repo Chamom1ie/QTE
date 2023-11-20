@@ -4,7 +4,6 @@ using UnityEngine;
 public class Boss : MonoBehaviour
 {
     [SerializeField] GameObject bulletPrf;
-    [SerializeField] GameObject blueFXPrf;
     Player player;
     int hp = 200;
 
@@ -36,6 +35,7 @@ public class Boss : MonoBehaviour
         {
             Vector2 dir = player.transform.position - transform.position;
             GameObject bullet = PoolManager.Get(bulletPrf, transform.position, Quaternion.identity);
+            AudioManager.instance.PlaySFX("shootBullet");
             bullet.GetComponent<BossBullet>().SetDir(dir);
             CamManager.instance.StartShake(4, 0.2f);
             await Task.Delay(160);
@@ -49,14 +49,10 @@ public class Boss : MonoBehaviour
         for (int i = 1; i <= shotgunCount; i++)
         {
             GameObject bullet = PoolManager.Get(bulletPrf, transform.position, Quaternion.identity);
+            if(i % 2 == 0) AudioManager.instance.PlaySFX("shootBullet");
             bullet.GetComponent<BossBullet>().SetDir(Vector2.Lerp(dirMin, dirMax, i / shotgunCount));
             CamManager.instance.StartShake(7, 0.2f);
         }
-    }
-
-    private void HitFX()
-    {
-        PoolManager.Get(blueFXPrf, transform.position, Quaternion.identity);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -65,7 +61,8 @@ public class Boss : MonoBehaviour
         if (collision.CompareTag("PlayerBullet"))
         {
             GameManager.instance.BossHPChange(hp);
-            HitFX();
+            AudioManager.instance.PlaySFX("bossHit");
+            FXManager.instance.GetFX(transform.position, collision.transform.position); 
             CamManager.instance.StartShake(2, 0.38f);
             if (Hp <= 0)
             {
@@ -74,8 +71,9 @@ public class Boss : MonoBehaviour
         }
         else if (collision.CompareTag("Player"))
         {
+            AudioManager.instance.PlaySFX("bossHit");
             GameManager.instance.DecreasePlayerHP(damage);
-            HitFX();
+            FXManager.instance.GetFX(transform.position, collision.transform.position);
         }
     }
 }

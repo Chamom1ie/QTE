@@ -76,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
         _coll.enabled = false;
 
         _rigidbody.velocity = 1.7f * speed * lastDir;
+        AudioManager.instance.PlaySFX("dash");
         yield return dashTime;
         sr.color = Color.cyan;
         _rigidbody.velocity = lastVel;
