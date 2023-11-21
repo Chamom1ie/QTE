@@ -10,7 +10,10 @@ public class QTEManager : MonoBehaviour
     public static QTEManager instance;
     [SerializeField] private InputReader _inputReader;
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject qteUIprf;
     [SerializeField] private Volume volume;
+    [SerializeField] private Canvas canvas;
+
 
     InputActionMap playerMap;
     InputActionMap QTEMap;
@@ -47,20 +50,22 @@ public class QTEManager : MonoBehaviour
         _inputReader.GetControl().inQTE.SetCallbacks(_inputReader);
         Debug.Log("QTEActionMap Enabled");
 
-        StartCoroutine(QTEPattern());
+        StartCoroutine(SpaceQTE());
     }
 
-    IEnumerator QTEPattern()
+    IEnumerator SpaceQTE()
     {
         int count = 10;
         float scale = 0.1f;
         float timetime = 0;
+        PoolManager.Get(qteUIprf, canvas.transform);
+        GameManager.instance.FindQTEUI();
         GameManager.instance.qteMaxCount = count;
         GameManager.instance.ChangeSliderValue(10 - count);
         GameManager.instance.spaceCounterObj.SetActive(true);
         player.GetComponent<PlayerMovement>().enabled = false;
         SetLights(10, 300);
-        while (count > 0)
+        while (count > 0 && player != null)
         {
             if (Keyboard.current.spaceKey.wasPressedThisFrame)
             {
@@ -76,17 +81,19 @@ public class QTEManager : MonoBehaviour
                 yield return null;
                 ActionMapToPlayer();
                 player.GetComponent<PlayerMovement>().enabled = true;
+                break;
             }
             else
             {
                 timetime += Time.deltaTime;
-                Mathf.Lerp(scale, 0.8f, timetime/1.1f);
+                Mathf.Lerp(scale, 0.8f, timetime/1f);
                 Time.timeScale = scale;
                 yield return null;
             }
             yield return null;
         }
         player.GetComponent<PlayerMovement>().enabled = true;
+        GameManager.instance.DestroyQTEUI();
         ActionMapToPlayer();
         SetLights(2, 30);
         //yield return new WaitForSeconds(0.2f);

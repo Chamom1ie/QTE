@@ -66,6 +66,7 @@ public class Boss : MonoBehaviour
             CamManager.instance.StartShake(2, 0.38f);
             if (Hp <= 0)
             {
+                GameManager.instance.GameClear();
                 gameObject.SetActive(false);
             }
         }

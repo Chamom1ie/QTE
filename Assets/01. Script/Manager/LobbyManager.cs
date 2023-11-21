@@ -1,8 +1,6 @@
 using DG.Tweening;
 using System.Collections;
-using Unity.Android.Gradle;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -64,7 +62,7 @@ public class LobbyManager : MonoBehaviour
         AudioManager.instance.musicSource.Stop();
         yield return Transition();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        AudioManager.instance.PlayMusic("boss" + Random.Range(1, 3));
+        AudioManager.instance.PlayMusic("boss" + Random.Range(1, AudioManager.instance.musicSounds.Length));
         Destroy(gameObject);
     }
 

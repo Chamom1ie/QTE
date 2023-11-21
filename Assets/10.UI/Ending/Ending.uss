@@ -1,0 +1,10 @@
+.creditContainer {
+    flex-grow: 1;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.71);
+}
+
+.credit {
+    position: absolute;
+    width: 100%;
+}

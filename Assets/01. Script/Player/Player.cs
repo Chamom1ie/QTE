@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using System;
-using UnityEditor.ShaderKeywordFilter;
 
 public class Player : MonoBehaviour
 {
@@ -42,6 +41,7 @@ public class Player : MonoBehaviour
 
         if (Hp <= 0)
         {
+            GameManager.instance.GameOver();
             PlayerDead?.Invoke();
             gameObject.SetActive(false);
         }
