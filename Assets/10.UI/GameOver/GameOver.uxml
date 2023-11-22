@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<engine:UXML
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:engine="UnityEngine.UIElements"
-    xmlns:editor="UnityEditor.UIElements"
-    xsi:noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd"
->
-    
-</engine:UXML>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="container" style="flex-grow: 1;">
+        <ui:VisualElement name="lbl-row" style="flex-grow: 1; flex-direction: column; justify-content: space-around;">
+            <ui:Label tabindex="-1" text="당신은 time 동안 살아남았습니다." parse-escape-sequences="true" display-tooltip-when-elided="true" name="lifetime-lbl" style="font-size: 70px; -unity-font-definition: initial; -unity-font: url(&apos;project://database/Assets/Settings/NeoDunggeunmoPro-Regular.ttf?fileID=12800000&amp;guid=50185657eaeea3a4b86e73897ac770d6&amp;type=3#NeoDunggeunmoPro-Regular&apos;);" />
+            <ui:Label tabindex="-1" text="남은 보스 체력 : int" parse-escape-sequences="true" display-tooltip-when-elided="true" name="hp-lbl" style="font-size: 70px; -unity-font-definition: initial; -unity-font: url(&apos;project://database/Assets/Settings/NeoDunggeunmoPro-Regular.ttf?fileID=12800000&amp;guid=50185657eaeea3a4b86e73897ac770d6&amp;type=3#NeoDunggeunmoPro-Regular&apos;);" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:Button text="로비로 돌아가기" parse-escape-sequences="true" display-tooltip-when-elided="true" name="lobby-btn" style="margin-top: 250px; margin-right: 250px; margin-bottom: 250px; margin-left: 250px; height: 75px; background-color: rgb(255, 100, 100); -unity-font-definition: initial; -unity-font: url(&apos;project://database/Assets/Settings/NeoDunggeunmoPro-Regular.ttf?fileID=12800000&amp;guid=50185657eaeea3a4b86e73897ac770d6&amp;type=3#NeoDunggeunmoPro-Regular&apos;); font-size: 50px; width: 450px; align-self: center;" />
+</ui:UXML>
