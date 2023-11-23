@@ -24,7 +24,6 @@ public class Player : MonoBehaviour
     private void Start()
     {
         GameManager.instance.playerMaxHp = Hp;
-        DontDestroyOnLoad(gameObject);
     }
 
     public void OnHit()

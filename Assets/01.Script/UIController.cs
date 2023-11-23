@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
@@ -6,10 +8,10 @@ public class UIController : MonoBehaviour
     public static UIController instance;
     private void Awake()
     {
+
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(transform.parent);
             gameObject.SetActive(false);
         }
         else
@@ -25,6 +27,7 @@ public class UIController : MonoBehaviour
     {
         AudioManager.instance.LoadVolume();
     }
+
     public void ToggleMusic()
     {
         AudioManager.instance.ToggleMusic();

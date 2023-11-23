@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -20,6 +21,11 @@ public class AudioManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
+    }
+
+    private void Update()
+    {
+        //SetPitch();
     }
 
     private void Start()
@@ -113,5 +119,10 @@ public class AudioManager : MonoBehaviour
     public void LoadVolume()
     {
         UIController.instance.SetValue(musicVolume, sfxVolume);
+    }
+
+    public void SetPitch()
+    {
+        musicSource.pitch = Time.timeScale;
     }
 }

@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
+using UnityEngine.Playables;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     public float bossMaxHP;
     public float playerMaxHp;
     public float qteMaxCount;
+    [SerializeField] private GameObject pauseObject;
 
     Image bossHPBar;
     Image playerHPBar;
@@ -28,6 +30,7 @@ public class GameManager : MonoBehaviour
     public GameObject blackPanelPrf;
     public Player player;
     public Boss boss;
+    private float pausedTime;
 
     private void Awake()
     {
@@ -82,26 +85,24 @@ public class GameManager : MonoBehaviour
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             Pause();
-            AudioManager.instance.PlaySFX("openPanel");
         }
-        if (Keyboard.current.escapeKey.wasPressedThisFrame && UIController.instance.gameObject.activeSelf)
-        {
-            Resume();
-            AudioManager.instance.PlaySFX("closePanel");
-        }
-    }
-
-    private void Resume()
-    {
-        UIController.instance.gameObject.SetActive(false);
-        Time.timeScale = 1;
     }
 
     private void Pause()
     {
-        UIController.instance.gameObject.SetActive(true);
-        Time.timeScale = 0;
-
+        if (!pauseObject.activeSelf)
+        {
+            print("ÄÑ");
+            Time.timeScale = 0;
+            AudioManager.instance.PlaySFX("openPanel");
+        }
+        else
+        {
+            print("²¨");
+            Time.timeScale = 1;
+            AudioManager.instance.PlaySFX("closePanel");
+        }
+        pauseObject.SetActive(!pauseObject.activeSelf);
     }
 
     private void OpenLogFile()
