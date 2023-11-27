@@ -33,16 +33,16 @@ public class PatternManager : MonoBehaviour
     #region Linear
     [SerializeField] float radius;
     [SerializeField] List<GameObject> linearBullet = new();
-    [SerializeField] GameObject linearBulletPrf; 
+    [SerializeField] GameObject linearBulletPrf;
     #endregion
-    int QTECount= 0;
+    int QTECount = 0;
 
     WaitForSeconds cooldown = new(3);
     private void Awake()
     {
         boss = FindObjectOfType<Boss>().gameObject;
         sr = boss.GetComponent<SpriteRenderer>();
-        
+
         firstColor = sr.color;
         patterns = new IEnumerator[] { BezierPattern(), DashPattern(), CrossPattern(), CirclePattern() };
 
@@ -69,7 +69,7 @@ public class PatternManager : MonoBehaviour
 
         //randPattern 개의 패턴 실행
         int randPattern = Random.Range(2, patterns.Length);
-        for (int i = 0; i < randPattern; i++) 
+        for (int i = 0; i < randPattern; i++)
         {
             patterns = new IEnumerator[] { BezierPattern(), DashPattern(), CirclePattern(), CrossPattern() };
             int random = Random.Range(0, 3);
@@ -127,7 +127,7 @@ public class PatternManager : MonoBehaviour
     }
     void Targetting()
     {
-        Array.Clear(bullets, 0, bullets.Length); 
+        Array.Clear(bullets, 0, bullets.Length);
         bullets = FindObjectsOfType<BezierBullet>();
         CamManager.instance.StartShake(30, 0.25f);
         foreach (BezierBullet bullet in bullets)
@@ -194,7 +194,7 @@ public class PatternManager : MonoBehaviour
             AudioManager.instance.PlaySFX("shootBullet");
         }
         yield return new WaitForSeconds(2.75f);
-    } 
+    }
 
     Vector2 RandomPoint(Vector2 playerPos)
     {

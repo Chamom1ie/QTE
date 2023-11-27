@@ -38,7 +38,7 @@ public class QTEManager : MonoBehaviour
         playerMap.Enable();
         QTEMap.Disable();
 
-        
+
         _inputReader.GetControl().Player.SetCallbacks(_inputReader);
     }
 
@@ -74,7 +74,7 @@ public class QTEManager : MonoBehaviour
                 GameManager.instance.ChangeSliderValue(10 - count);
                 print($"³²Àº È½¼ö : {count}");
             }
-            if(timetime > 1.1f)
+            if (timetime > 1.1f)
             {
                 Time.timeScale = 1;
                 SetLights(2, 30);
@@ -86,7 +86,7 @@ public class QTEManager : MonoBehaviour
             else
             {
                 timetime += Time.deltaTime;
-                Mathf.Lerp(scale, 0.8f, timetime/1f);
+                Mathf.Lerp(scale, 0.8f, timetime / 1f);
                 Time.timeScale = scale;
                 yield return null;
             }
@@ -115,4 +115,3 @@ public class QTEManager : MonoBehaviour
         _sr.color = Color.cyan;
     }
 }
-    

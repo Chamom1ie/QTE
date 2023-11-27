@@ -12,7 +12,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource musicSource, sfxSource;
 
     public float musicVolume = 1, sfxVolume = 1;
-    
+
     private void Awake()
     {
         if (instance == null)
@@ -104,7 +104,7 @@ public class AudioManager : MonoBehaviour
     {
         musicSource.volume = volume;
     }
-    
+
     public void SFXVolume(float volume)
     {
         sfxSource.volume = volume;

@@ -17,7 +17,7 @@ public class LobbyManager : MonoBehaviour
     private void Start()
     {
         AudioManager.instance.PlayMusic("Lobby");
-        for(int i = 0; i < AudioManager.instance.bossBGMs.Length; i++)
+        for (int i = 0; i < AudioManager.instance.bossBGMs.Length; i++)
         {
             Sound s = AudioManager.instance.bossBGMs[i];
 

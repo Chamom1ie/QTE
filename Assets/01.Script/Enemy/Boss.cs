@@ -51,7 +51,7 @@ public class Boss : MonoBehaviour
         {
             ++bulletCount;
             GameObject bullet = PoolManager.Get(bulletPrf, transform.position, Quaternion.identity);
-            if(i % 2 == 0) AudioManager.instance.PlaySFX("shootBullet");
+            if (i % 2 == 0) AudioManager.instance.PlaySFX("shootBullet");
             bullet.GetComponent<BossBullet>().SetDir(Vector2.Lerp(dirMin, dirMax, i / shotgunCount));
             CamManager.instance.StartShake(7, 0.2f);
         }
@@ -64,7 +64,7 @@ public class Boss : MonoBehaviour
         {
             GameManager.instance.BossHPChange(hp);
             AudioManager.instance.PlaySFX("bossHit");
-            FXManager.instance.GetFX(transform.position, collision.transform.position); 
+            FXManager.instance.GetFX(transform.position, collision.transform.position);
             CamManager.instance.StartShake(2, 0.38f);
             if (Hp <= 0)
             {

@@ -71,7 +71,8 @@ public class GameManager : MonoBehaviour
             LogToFile(errorMessage);
             OpenLogFile();
 
-            Application.Quit();        }
+            Application.Quit();
+        }
     }
 
     private void Update()
@@ -200,7 +201,7 @@ public class GameManager : MonoBehaviour
         InfoManager.instance.SetBossHp(boss.Hp);
         InfoManager.instance.SetPlayTime((int)MathF.Round(playTime));
         StartCoroutine(SceneChange("GameOver"));
-        
+
     }
 
     IEnumerator SceneChange(string sceneName)

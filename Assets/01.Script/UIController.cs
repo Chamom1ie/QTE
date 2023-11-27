@@ -43,7 +43,7 @@ public class UIController : MonoBehaviour
     public void SetMuted()
     {
         _sfxMute.SetActive(AudioManager.instance.sfxSource.mute);
-        _musicMute.SetActive(AudioManager.instance.musicSource.mute); 
+        _musicMute.SetActive(AudioManager.instance.musicSource.mute);
     }
 
     public void MusicVolume()

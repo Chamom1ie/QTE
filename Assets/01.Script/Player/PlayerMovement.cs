@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isCooldown = false;
     private float dashCool = 3f;
     private float lastDashTime = 0f;
-    WaitForSeconds dashTime= new WaitForSeconds(0.2f);
+    WaitForSeconds dashTime = new WaitForSeconds(0.2f);
 
     BoxCollider2D _coll;
 
@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _inputReader.MovementEvent -= MovementHandle;
         sr.color = Color.white;
-         Vector2 lastVel = _rigidbody.velocity;
+        Vector2 lastVel = _rigidbody.velocity;
         _light.intensity = _light.intensity * 3;
         _coll.enabled = false;
 
